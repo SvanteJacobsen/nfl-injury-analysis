@@ -17,14 +17,24 @@ Transformations, analytical models, and dashboards are not yet included.
 - A local copy of the project repository.
 - Python 3.13.5, the version used during development.
 - A Snowflake account with access to SYSADMIN and SECURITYADMIN.
-- The archived nflverse source files and their metadata.
+- Access to the original nflverse archive, or internet access to
+  download the currently published source files.
 
 The repository includes the two manually collected CSV snapshots.
 It excludes credentials and the installed Python environment.
 
-The nflverse snapshots are currently stored locally. A durable archive
-location has not yet been established. Complete that backup before
-relying on this guide for disaster recovery.
+The original nflverse snapshots and metadata are backed up in a private
+Google Drive archive maintained by the project author. Restore them to
+data/raw/nflverse/injuries/ before rebuilding with the original snapshots.
+
+Archive filename:
+
+nflverse_injuries_2015-2025_snapshot_2026-10-29.zip
+
+Other users can run the download script to retrieve the currently
+published files, which may differ from the original snapshots.
+The private archive's link and account details are not included
+in this repository.
 
 ## 2. Verify the source files
 
@@ -53,9 +63,12 @@ the original data collection is complete.
 
 ### nflverse injury reports
 
-Restore the archived files to:
+Extract the original archive and place its contents in:
 
 data/raw/nflverse/injuries/
+
+The directory must contain 22 files: eleven CSV files and eleven
+matching metadata files.
 
 Each season from 2015 through 2025 requires:
 
@@ -70,7 +83,8 @@ Each metadata file records:
 - File size in bytes.
 - SHA-256 checksum.
 
-Restore both the CSV and its matching metadata file.
+Restore both the CSV and its matching metadata file. Ensure that
+extraction does not introduce an additional nested injuries directory.
 
 If the archive is unavailable, the download script can retrieve the
 currently published files. Those files may differ from the snapshots
@@ -109,7 +123,8 @@ Inspect the manually collected files:
 python ingestion/inspect_sources.py
 ```
 
-Inspect the restored nflverse injury files:
+If the nflverse files have been restored from the original archive,
+inspect them:
 
 ```bash
 python ingestion/inspect_nflverse_injuries.py
@@ -119,6 +134,9 @@ These scripts report file structure and basic quality information.
 They do not modify source files.
 
 ### Downloading nflverse data when needed
+
+Skip this download step if the original archive has already been
+restored.
 
 To check published file availability:
 
@@ -132,6 +150,12 @@ To download files that are not already archived locally:
 python ingestion/download_nflverse_injuries.py
 ```
 
+Then inspect the downloaded files:
+
+```bash
+python ingestion/inspect_nflverse_injuries.py
+```
+
 The downloader preserves existing local snapshots and verifies them
 against their saved checksums. It does not automatically replace them
 when newer source versions are published.
@@ -140,6 +164,8 @@ If a CSV or its matching metadata file is missing, or a checksum
 differs, investigate the archive before proceeding.
 
 ### Observed nflverse source limitations
+
+The following observations apply to the original project snapshots:
 
 - No preseason records were observed in the downloaded files.
 - The 2023 file contains REG and WC records only.
@@ -176,6 +202,8 @@ The scripts create:
 | IR table | RAW.IR_TRANSACTIONS |
 | Concussion table | RAW.CONCUSSIONS |
 | nflverse injury table | RAW.NFLVERSE_INJURIES |
+
+All RAW tables belong to the NFL_INJURY_ANALYSIS database.
 
 The role setup assigns NFL_LOADER_ROLE to the user running the script.
 
@@ -280,7 +308,7 @@ used by the manual-source loader.
 Each season is committed separately. A later failure does not roll back
 earlier committed seasons.
 
-Expected row counts:
+Expected row counts for the original snapshots:
 
 | Season | Rows |
 |---|---:|
@@ -296,6 +324,10 @@ Expected row counts:
 | 2024 | 6,215 |
 | 2025 | 6,068 |
 | Total | 60,788 |
+
+Newly downloaded source versions may have different counts or column
+structures. Investigate differences rather than treating updated
+sources as equivalent to the original snapshots.
 
 ## 9. Verify the loaded tables
 
@@ -350,7 +382,7 @@ GROUP BY SOURCE_FILE_SEASON
 ORDER BY SOURCE_FILE_SEASON;
 ```
 
-For each season:
+For each season restored from the original archive:
 
 - row_count must match the baseline in section 8.
 - file_versions must equal 1.
@@ -396,15 +428,19 @@ Verified through successful execution in the initial account:
 - Initial loading of all eleven nflverse injury files.
 - Sequential rerun skipping all eleven unchanged nflverse files.
 
+The project author has also saved a copy of the original nflverse
+archive to a private Google Drive location. Recovery from that backup
+has not yet been tested.
+
 Not yet verified:
 
 - Complete rebuild in a separate empty database or new account.
+- Downloading and restoring the private archive backup.
 - Recovery from interrupted loads.
 - Value-by-value comparison between source files and loaded tables.
 
 Still required:
 
-- Establish and document a durable nflverse snapshot archive.
 - Add roster ingestion and its rebuild instructions.
 - Add dbt transformations, tests, and analytical models.
 - Add dashboard and report rebuild instructions.
