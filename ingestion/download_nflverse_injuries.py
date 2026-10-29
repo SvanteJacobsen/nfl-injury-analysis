@@ -16,11 +16,17 @@ RELEASE_URL = (
 SEASONS = range(2015, 2026)
 
 
-def download_source(session: requests.Session, asset: dict) -> None:
-    """Archive one source file and its download metadata."""
+def download_source(
+    session: requests.Session,
+    asset: dict,
+    output_dir: Path = OUTPUT_DIR,
+) -> None:
+    """Archive one source file and its metadata in the selected directory."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+
     filename = asset["name"]
-    destination = OUTPUT_DIR / filename
-    metadata_path = OUTPUT_DIR / f"{filename}.metadata.json"
+    destination = output_dir / filename
+    metadata_path = output_dir / f"{filename}.metadata.json"
 
     # Preserve existing snapshots rather than replacing them on every run.
     if destination.exists() or metadata_path.exists():
