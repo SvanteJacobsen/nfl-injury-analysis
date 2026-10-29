@@ -220,7 +220,12 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Project data: kept locally and backed up separately
-/data/
+# Ignore data except the two versioned source snapshots.
+/data/*
+!/data/raw/
+/data/raw/*
+!/data/raw/ir_transactions.csv
+!/data/raw/concussions.csv
 
 # Local credentials and connection settings
 .env.*
