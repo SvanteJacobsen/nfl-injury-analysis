@@ -1,88 +1,174 @@
 # NFL Injury Analysis
 
-This project examines reported NFL injuries, injured reserve placements
-and concussion trends. It combines a reproducible data pipeline with
-an interactive dashboard and a narrative report.
+An individual Data Analyst project exploring reported
+NFL injuries, injured reserve placements, and concussions over time.
 
-## Research questions
+The project combines a reproducible data pipeline with an analytical
+dashboard and a narrative report. The planned story moves from broad
+injury reporting and IR trends to a deeper discussion of concussions,
+head impacts, and player safety.
 
-- How have reported injuries and IR placements changed over time?
-- Which injury categories are most commonly reported?
-- How does the reported injury burden differ between position groups?
-- How have concussions changed across preseason and regular-season
-  games and practices?
-- What does published research suggest about long-term consequences
-  of repeated head impacts and preventive measures such as Guardian Caps?
+## Analytical questions
+
+- How has reported injury burden changed across seasons?
+- Which injury categories appear most frequently in injury reports?
+- How do reported injuries vary between position groups?
+- How have IR placements and the number of players placed on IR changed?
+- How have reported concussions changed over time?
+- What does published research suggest about Guardian Caps and
+  longer-term neurological outcomes?
+
+Definitions and denominators will be documented before analytical
+metrics are published.
+
+## Current status
+
+The ingestion stage is implemented for all five current source datasets.
+
+| RAW table | Coverage | Loaded rows |
+|---|---|---:|
+| IR_TRANSACTIONS | Seasons 2015–2025; August–February collection window | 5,356 |
+| CONCUSSIONS | Seasons 2015–2024; preseason and regular season | 10 |
+| NFLVERSE_INJURIES | Seasons 2015–2025; observed regular season and postseason records | 60,788 |
+| NFLVERSE_ROSTERS | Seasons 2015–2025 | 33,195 |
+| NFLVERSE_WEEKLY_ROSTERS | Seasons 2015–2025 | 498,381 |
+
+All tables are stored in NFL_INJURY_ANALYSIS.RAW.
+
+Implemented:
+
+- Local Python environment and pinned dependency versions.
+- Snowflake infrastructure and loader-role setup scripts.
+- Source inspection scripts.
+- nflverse downloads with source metadata and SHA-256 checksums.
+- Ingestion preserving source values and record provenance.
+- Successful initial loads and sequential rerun checks.
+- Private Google Drive backups of downloaded nflverse snapshots.
+
+Not yet implemented:
+
+- dbt transformations and automated analytical tests.
+- Final player matching and position-group definitions.
+- Validated analytical metrics.
+- Dashboard and narrative report.
+- Complete rebuild test in another environment.
+
+## Architecture
+
+The intended flow is:
+
+Source files → local raw snapshots → Python ingestion → Snowflake RAW
+→ dbt staging → dbt intermediate models → analytical marts
+→ dashboard and narrative report.
+
+The pipeline currently reaches Snowflake RAW. Subsequent layers are
+planned.
+
+Python handles acquisition and ingestion. dbt will handle data types,
+cleaning, deduplication, player matching, and analytical models.
+Notebooks can support exploratory analysis.
 
 ## Data sources
 
-| Source | Content | Current scope |
-| --- | --- | --- |
-| nflverse injury reports | Reported injuries and player information | 2024 tested; historical coverage to be assessed |
-| nflverse rosters | Player IDs, positions and team information | 2015–2025 |
-| NFL transaction archive | Manually collected Reserve/Injured transactions | 2015–2025 seasons, August–February |
-| NFL injury data | Aggregate concussion counts | 2015–2024, preseason and regular season |
-| Published research | CTE research, long term consequences, suicide rates | Literature review |
+### Manually collected sources
 
-Source links:
+- [NFL injury and concussion data](https://amp.nfl.com/playerhealthandsafety/health-and-wellness/injury-data/injury-data)
+- [NFL reserve-list transactions: example page](https://www.nfl.com/transactions/league/reserve-list/2024/1)
 
-- [nflverse injury reports](https://github.com/nflverse/nflverse-data/releases/tag/injuries)
-- [nflverse season rosters](https://github.com/nflverse/nflverse-data/releases/tag/rosters)
-- [nflverse weekly rosters](https://github.com/nflverse/nflverse-data/releases/tag/weekly_rosters)
-- [NFL transaction archive](https://www.nfl.com/transactions/league/reserve-list/2024/1)
-- [NFL injury data](https://www.nfl.com/playerhealthandsafety/health-and-wellness/injury-data/injury-data)
+The manually compiled CSV snapshots are included in data/raw/.
+
+The concussion CSV currently covers 2015–2024. It does not include a
+2025 row.
+
+The IR collection covers August through February for each season.
+January and February belong to the season that began in the preceding
+calendar year. Collection completeness has not been independently
+established.
+
+### nflverse sources
+
+- [Injury reports](https://github.com/nflverse/nflverse-data/releases/tag/injuries)
+- [Season rosters](https://github.com/nflverse/nflverse-data/releases/tag/rosters)
+- [Weekly rosters](https://github.com/nflverse/nflverse-data/releases/tag/weekly_rosters)
+- [Injury data dictionary](https://nflreadr.nflverse.com/articles/dictionary_injuries.html)
+- [Roster data dictionary](https://nflreadr.nflverse.com/articles/dictionary_rosters.html)
+
+Downloaded nflverse snapshots and metadata are backed up in private
+Google Drive archives maintained by the project author. They are not
+included in the repository.
+
+The download scripts retrieve published files. Source URLs may later
+serve revised files, so exact reproduction requires the archived
+snapshots.
+
+### Research sources for planned contextual analysis
+
 - [CTE prevalence in deceased NFL players](https://www.bmj.com/content/394/bmj-2026-100418)
-- [CTE and dementia](https://pmc.ncbi.nlm.nih.gov/articles/PMC12836376/?utm_source=chatgpt.com)
-- [Suicide rates - NFL vs NBA & MLB](https://hsph.harvard.edu/news/study-shows-rise-in-suicide-rate-among-nfl-players/)
+- [CTE and dementia](https://pmc.ncbi.nlm.nih.gov/articles/PMC12836376/)
+- [Suicide rates: NFL, NBA and MLB](https://hsph.harvard.edu/news/study-shows-rise-in-suicide-rate-among-nfl-players/)
 
-## Planned data pipeline
+These sources are candidates for the report's research discussion.
+They have not been ingested into Snowflake. Their methods, populations,
+and limitations must be reviewed before findings are used.
 
-Source files → Raw file archive → Python ingestion → Snowflake RAW
-→ dbt staging → dbt intermediate → dbt marts
-→ Dashboard and narrative report
+## Important interpretation limits
 
-- Raw files preserve the original source values.
-- Python handles acquisition, ingestion and load logging.
-- Snowflake stores the raw and transformed data.
-- dbt handles standardisation, transformations, tests and model documentation.
-- Marts provide documented datasets and metrics for presentation.
+- An injury-report row is not necessarily a distinct injury event.
+  A player can appear in several weeks and have multiple injury fields.
+- An IR placement is not equivalent to a season-ending injury.
+- Raw records include values that require classification, including
+  non-injury absences.
+- Existing per-game values in the concussion source require validation
+  against the intended numerator and actual game counts.
+- Position comparisons require an explicit population and denominator.
+  Roster membership alone does not measure playing exposure.
+- Observational season trends cannot establish the causal effect of
+  Guardian Caps or diagnose CTE.
 
-## Important definitions and limitations
+Observed source issues include:
 
-- An injury report is not necessarily a new injury event.
-- An IR placement does not necessarily end a player's season.
-- IR transactions and unique players on IR are separate measures.
-- The IR dataset includes playoffs; the concussion dataset covers
-  preseason and regular season.
-- Player matching remains incomplete, particularly for 2015.
-- Position comparisons require explicit population and exposure definitions.
-- Concussion rates require verified counts of games actually played.
-- Changes in reporting, schedules and IR rules must be considered
-  when comparing seasons.
-- The project data cannot establish that a player developed CTE or
-  demonstrate causal effects of Guardian Caps.
+- 75 exact duplicate IR rows, preserved in RAW.
+- Missing IR positions, requiring later player matching.
+- No preseason records observed in the downloaded nflverse injury or
+  weekly roster snapshots.
+- Injury data for 2023 contains REG and WC records only.
+- The 2018 injury conference round contains records for three teams;
+  the reason remains unresolved.
+- Injury-file columns differ in 2025.
+- Roster files contain missing IDs, names, or positions.
+- The 2015 roster files contain fewer unique player IDs than later
+  seasons, limiting assumptions about historical matching coverage.
 
 ## Repository structure
 
-- `docs/`: sources, architecture, definitions and methodological decisions
-- `ingestion/`: Python acquisition and loading scripts
-- `infrastructure/`: Snowflake setup SQL
-- `notebooks/`: exploratory analysis
-- `data/raw/`: local source files, excluded from Git
+| Path | Purpose |
+|---|---|
+| ingestion/ | Source acquisition, inspection, and loading scripts |
+| infrastructure/ | Snowflake setup and raw-table SQL |
+| docs/ | Rebuild instructions and project documentation |
+| notebooks/ | Exploratory analysis |
+| data/raw/ | Source snapshots; only the two manual CSV files are versioned |
+| requirements.in | Direct Python dependencies |
+| requirements.txt | Pinned installed dependency versions |
+| .env.example | Connection configuration template without credentials |
 
-A dbt project will be added during implementation.
+## Rebuilding the project
 
-## Project status
+Follow [docs/rebuild.md](docs/rebuild.md).
 
-Initial data exploration and feasibility checks are complete.
-Pipeline implementation is starting.
+The documented development environment uses Python 3.13.5.
+The loaders read account-specific settings from a local .env file.
 
-Setup, execution and recovery instructions will be added as the
-pipeline is implemented.
+Never upload .env, passwords, private keys, or the .venv directory.
 
-## Data and credentials
+Sequential reruns have been tested. Concurrent loader execution and
+full recovery in another Snowflake account have not been tested.
 
-Raw data is stored locally and must also be backed up separately.
-Source datasets are not currently distributed through this repository.
+## Next steps
 
-Credentials and private keys must never be committed.
+1. Complete raw-data verification and recovery testing.
+2. Configure dbt and transformation permissions.
+3. Build staging and intermediate models.
+4. Resolve player matches and document unresolved cases.
+5. Define and test analytical metrics.
+6. Build the dashboard and narrative report.
