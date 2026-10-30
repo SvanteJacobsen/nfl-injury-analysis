@@ -172,3 +172,42 @@ full recovery in another Snowflake account have not been tested.
 4. Resolve player matches and document unresolved cases.
 5. Define and test analytical metrics.
 6. Build the dashboard and narrative report.
+
+## Transformation progress
+
+The first dbt staging model is implemented and verified.
+
+- Source: `NFL_INJURY_ANALYSIS.RAW.CONCUSSIONS`
+- Output view: `NFL_INJURY_ANALYSIS.DBT_DEV_STAGING.STG_CONCUSSIONS`
+- Grain: one row per season.
+- Current coverage: 10 seasons, 2015–2024.
+- Transformations: descriptive column names and numeric data types.
+- Unavailable values remain NULL, including preseason game concussions in 2020.
+- Source metadata is retained for traceability.
+
+The model builds successfully and all six initial data tests pass.
+These tests check season uniqueness and required values; they do not
+establish source completeness or validate every reported count.
+
+dbt runs locally in a separate Python environment and executes SQL
+in Snowflake using `NFL_TRANSFORMER_ROLE`.
+
+See [the rebuild guide](docs/rebuild.md) for setup and execution.
+
+## IR staging progress
+
+The IR staging view is implemented:
+`NFL_INJURY_ANALYSIS.DBT_DEV_STAGING.STG_IR_TRANSACTIONS`.
+
+- Preserves all 5,356 source records, including duplicates.
+- Covers 11 NFL seasons, 2015–2025.
+- Transaction dates range from 2015-08-17 to 2026-02-03.
+- Converts years to numbers and constructs full transaction dates.
+- Trims surrounding whitespace and converts blank text to NULL.
+- Retains source metadata for traceability.
+
+All six initial IR data tests pass: five required-value checks
+and one check of the August–February scope and season assignment.
+
+Deduplication and player matching have not yet been implemented
+in the dbt pipeline. IR placements are not treated as season-ending injuries.
