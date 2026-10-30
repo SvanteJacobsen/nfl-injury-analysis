@@ -1,0 +1,21 @@
+# Connection template. Credentials are read from environment variables.
+nfl_injury_analysis:
+  target: dev
+
+  outputs:
+    dev:
+      type: snowflake
+
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+
+      database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"
+
+      # Transformations use their own role and output schema.
+      role: NFL_TRANSFORMER_ROLE
+      schema: DBT_DEV
+
+      threads: 2
+      client_session_keep_alive: false
