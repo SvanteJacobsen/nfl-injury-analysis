@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: stg_concussions
+    description: >
+      Typed NFL concussion counts with one row per season.
+      Unavailable counts remain NULL. Per-game metrics are not yet calculated.
+
+    columns:
+      - name: season
+        description: "NFL season year."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: preseason_practice_concussions
+        description: "Reported concussions during preseason practices."
+        data_tests:
+          - not_null
+
+      - name: preseason_game_concussions
+        description: >
+          Reported concussions during preseason games.
+          NULL when the source value is unavailable, including 2020.
+
+      - name: regular_season_practice_concussions
+        description: "Reported concussions during regular season practices."
+        data_tests:
+          - not_null
+
+      - name: regular_season_game_concussions
+        description: "Reported concussions during regular season games."
+        data_tests:
+          - not_null
+
+      - name: total_concussions
+        description: "Source-reported total across the included categories."
+        data_tests:
+          - not_null
