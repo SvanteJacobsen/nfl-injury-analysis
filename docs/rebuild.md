@@ -584,3 +584,37 @@ Preseason game concussions for 2020 remain NULL.
 The connection, model build and initial tests have been verified
 in the current account. A complete rebuild in a new Snowflake
 account has not yet been tested.
+
+## Build and verify IR staging
+
+After loading the manual sources and completing the dbt setup,
+run this command from the project root with `.venv-dbt` active:
+
+```bash
+dotenv -f .env run -- dbt build --select stg_ir_transactions --project-dir dbt --profiles-dir dbt
+```
+
+The verified result is one successfully created view and six passing tests.
+
+Inspect the output in Snowflake:
+
+```sql
+SELECT
+    COUNT(*) AS source_records,
+    MIN(transaction_date) AS first_transaction_date,
+    MAX(transaction_date) AS last_transaction_date,
+    COUNT(DISTINCT season) AS distinct_seasons
+FROM NFL_INJURY_ANALYSIS.DBT_DEV_STAGING.STG_IR_TRANSACTIONS;
+```
+
+Expected results for the current source snapshot:
+
+| Check | Expected value |
+|---|---:|
+| Source records | 5356 |
+| First transaction date | 2015-08-17 |
+| Last transaction date | 2026-02-03 |
+| Distinct seasons | 11 |
+
+Staging retains duplicate source records. Deduplication and
+player matching will be implemented in subsequent models.
