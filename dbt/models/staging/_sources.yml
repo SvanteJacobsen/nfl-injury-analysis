@@ -12,3 +12,10 @@ sources:
         description: >
           Manually collected NFL concussion counts for 2015–2024.
           Includes preseason and regular season, excluding postseason.
+
+      - name: ir_transactions
+        identifier: IR_TRANSACTIONS
+        description: >
+          Manually collected Reserve/Injured transactions for seasons
+          2015–2025, covering August through February.
+          Original rows are retained, including duplicate records.
