@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: stg_ir_transactions
+    description: >
+      Typed and lightly cleaned IR source records.
+      One row per original source record, including duplicates.
+      An IR placement does not necessarily represent a season-ending injury.
+
+    columns:
+      - name: calendar_year
+        description: "Calendar year in which the transaction occurred."
+        data_tests:
+          - not_null
+
+      - name: season
+        description: "NFL season assigned in the source file."
+        data_tests:
+          - not_null
+
+      - name: transaction_date
+        description: "Full date constructed from calendar_year and MM/DD."
+        data_tests:
+          - not_null
+
+      - name: source_date_text
+        description: "Original MM/DD date text, with surrounding whitespace removed."
+
+      - name: player_name
+        description: "Player name from the transaction source."
+        data_tests:
+          - not_null
+
+      - name: source_position
+        description: >
+          Position supplied in the manual source.
+          NULL when unavailable; roster enrichment will be handled separately.
+
+      - name: from_team
+        description: "Source value from the transaction page's From column."
+
+      - name: to_team
+        description: "Source value from the transaction page's To column."
+
+      - name: transaction_type
+        description: "Transaction category from the source."
+        data_tests:
+          - not_null
+
+      - name: source_filename
+        description: "Name of the ingested source file."
+
+      - name: source_file_sha256
+        description: "SHA-256 fingerprint of the ingested source file."
+
+      - name: source_row_number
+        description: "Row number assigned during ingestion."
+
+      - name: loaded_at
+        description: "Timestamp when the record was loaded into RAW."
