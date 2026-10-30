@@ -1,14 +1,14 @@
 # Rebuild guide
 
-This guide describes how to recreate the implemented pipeline
+This guide describes how to recreate the implemented ingestion pipeline
 in a new Snowflake account.
 
 Current scope:
 
 - Manually collected IR transactions.
 - Manually collected concussion statistics.
-- nflverse injury reports for seasons 2015–2025.
-- Python ingestion into Snowflake RAW tables.
+- nflverse injury reports, season rosters, and weekly rosters.
+- Python ingestion into five Snowflake RAW tables.
 
 Transformations, analytical models, and dashboards are not yet included.
 
@@ -17,26 +17,27 @@ Transformations, analytical models, and dashboards are not yet included.
 - A local copy of the project repository.
 - Python 3.13.5, the version used during development.
 - A Snowflake account with access to SYSADMIN and SECURITYADMIN.
-- Access to the original nflverse archive, or internet access to
-  download the currently published source files.
+- Access to the original nflverse archives, or internet access to
+  download currently published files.
 
 The repository includes the two manually collected CSV snapshots.
 It excludes credentials and the installed Python environment.
 
-The original nflverse snapshots and metadata are backed up in a private
-Google Drive archive maintained by the project author. Restore them to
-data/raw/nflverse/injuries/ before rebuilding with the original snapshots.
+The original nflverse snapshots and metadata are backed up in private
+Google Drive archives maintained by the project author. Private links
+and account details are not included in this repository.
 
-Archive filename:
+The injury archive was saved as:
 
 nflverse_injuries_2015-2025_snapshot_2026-10-29.zip
 
-Other users can run the download script to retrieve the currently
-published files, which may differ from the original snapshots.
-The private archive's link and account details are not included
-in this repository.
+A separate roster archive contains the rosters and weekly_rosters
+directories, including their metadata files.
 
-## 2. Verify the source files
+Other users can retrieve currently published files using the download
+scripts. Those files may differ from the original snapshots.
+
+## 2. Restore the source files
 
 ### Manually collected sources
 
@@ -45,12 +46,10 @@ The repository includes:
 - data/raw/ir_transactions.csv
 - data/raw/concussions.csv
 
-Use these files unchanged when rebuilding. Do not remove duplicates,
-edit values, or re-export them before loading.
+Use these files unchanged. Do not remove duplicates, edit values,
+or re-export them before loading.
 
-Expected data rows, excluding headers:
-
-| Source file | Rows |
+| Source file | Data rows, excluding the header |
 |---|---:|
 | ir_transactions.csv | 5,356 |
 | concussions.csv | 10 |
@@ -58,38 +57,44 @@ Expected data rows, excluding headers:
 The IR snapshot contains 75 exact duplicate rows beyond their first
 occurrences. These are intentionally preserved in RAW.
 
-These counts describe the source snapshots. They do not prove that
-the original data collection is complete.
+These counts describe the snapshots and do not establish collection
+completeness.
 
-### nflverse injury reports
+### nflverse sources
 
-Extract the original archive and place its contents in:
+Restore the archived directories to:
 
-data/raw/nflverse/injuries/
+- data/raw/nflverse/injuries/
+- data/raw/nflverse/rosters/
+- data/raw/nflverse/weekly_rosters/
 
-The directory must contain 22 files: eleven CSV files and eleven
-matching metadata files.
+Each directory contains eleven CSV files and eleven matching metadata
+files for seasons 2015–2025.
 
-Each season from 2015 through 2025 requires:
+| Directory | CSV filename pattern |
+|---|---|
+| injuries | injuries_YEAR.csv |
+| rosters | roster_YEAR.csv |
+| weekly_rosters | roster_weekly_YEAR.csv |
 
-- injuries_YEAR.csv
-- injuries_YEAR.csv.metadata.json
+Each CSV has a matching file named:
 
-Each metadata file records:
+CSV_FILENAME.metadata.json
 
-- Source filename and download URL.
-- Download timestamp in UTC.
-- GitHub source asset ID and update timestamp.
-- File size in bytes.
-- SHA-256 checksum.
+For example:
 
-Restore both the CSV and its matching metadata file. Ensure that
-extraction does not introduce an additional nested injuries directory.
+- injuries_2015.csv
+- injuries_2015.csv.metadata.json
 
-If the archive is unavailable, the download script can retrieve the
-currently published files. Those files may differ from the snapshots
-used in the original build. A fresh download is therefore not a
-guaranteed restoration of the original data.
+Metadata records the source URL, download timestamp, source asset ID,
+source update timestamp, file size, and SHA-256 checksum.
+
+Restore both files in each pair. Avoid additional nested directories
+when extracting archives.
+
+Across all three directories, expect 33 CSV files and 33 metadata files.
+
+A fresh download is not a guaranteed restoration of the original data.
 
 ## 3. Recreate the Python environment
 
@@ -105,91 +110,95 @@ python -m pip install -r requirements.txt
 python -m pip check
 ```
 
-Confirm that python3 uses the intended Python version before creating
-the environment.
+Confirm that python3 uses the intended version before creating .venv.
 
-The pinned dependencies were captured on the development machine.
+Pinned dependencies were captured on the development machine.
 Another operating system or Python version may require compatibility
 checks.
 
-requirements.in lists the direct dependencies.
+requirements.in lists direct dependencies.
 requirements.txt records the installed dependency versions.
 
-## 4. Inspect the local sources
+## 4. Download sources if the archives are unavailable
 
-Inspect the manually collected files:
+Skip this section if the original snapshots have been restored.
 
-```bash
-python ingestion/inspect_sources.py
-```
-
-If the nflverse files have been restored from the original archive,
-inspect them:
-
-```bash
-python ingestion/inspect_nflverse_injuries.py
-```
-
-These scripts report file structure and basic quality information.
-They do not modify source files.
-
-### Downloading nflverse data when needed
-
-Skip this download step if the original archive has already been
-restored.
-
-To check published file availability:
+Check injury-file availability and download the published files:
 
 ```bash
 python ingestion/inspect_nflverse_release.py
-```
-
-To download files that are not already archived locally:
-
-```bash
 python ingestion/download_nflverse_injuries.py
 ```
 
-Then inspect the downloaded files:
+Download season and weekly roster files:
 
 ```bash
-python ingestion/inspect_nflverse_injuries.py
+python ingestion/download_nflverse_rosters.py
 ```
 
-The downloader preserves existing local snapshots and verifies them
-against their saved checksums. It does not automatically replace them
-when newer source versions are published.
+The roster downloader imports the shared download function from
+download_nflverse_injuries.py. Keep both scripts available.
 
-If a CSV or its matching metadata file is missing, or a checksum
-differs, investigate the archive before proceeding.
+The downloaders:
 
-### Observed nflverse source limitations
+- Preserve existing local snapshots.
+- Verify existing files against their saved checksums.
+- Check downloaded file sizes.
+- Check published SHA-256 digests when GitHub provides them.
+- Save source metadata alongside each CSV.
 
-The following observations apply to the original project snapshots:
+They do not automatically replace snapshots when upstream files change.
 
-- No preseason records were observed in the downloaded files.
+A missing file pair or checksum mismatch requires investigation.
+
+## 5. Inspect the sources
+
+Run:
+
+```bash
+python ingestion/inspect_sources.py
+python ingestion/inspect_nflverse_injuries.py
+python ingestion/inspect_nflverse_rosters.py
+```
+
+These scripts report structure and basic quality information without
+modifying source files.
+
+### Observed injury-file limitations
+
+- No preseason records were observed.
 - The 2023 file contains REG and WC records only.
 - The 2018 conference round contains records for three teams;
-  the reason has not yet been established.
+  the reason remains unresolved.
 - The 2025 file includes season_type but omits date_modified.
 - The 2015–2024 files include date_modified but omit season_type.
 
-All inspected seasons contain records for 32 teams and all regular
-season week numbers. This does not establish that every expected
-team-week report or player record is present.
+All seasons contain records for 32 teams and all regular season week
+numbers. This does not establish complete team-week or player coverage.
 
-Injury-report rows must not be interpreted automatically as distinct
-injury events.
+### Observed roster limitations
 
-## 5. Create the Snowflake infrastructure
+- Both roster types have the same observed 36 source columns.
+- Missing IDs, names, and positions occur in some files.
+- No exact duplicate rows were found during inspection.
+- Weekly files include regular season and postseason week numbers.
+- No preseason records were observed in the weekly-file summary.
+- Both 2015 roster files contain 2,064 unique nonblank player IDs,
+  fewer than later seasons.
+
+Nonblank-ID counts do not independently validate every ID.
+Repeated player IDs are not automatically duplicate records.
+
+## 6. Create the Snowflake infrastructure
 
 In a Snowflake SQL worksheet, run the complete contents of these files
-in this order:
+in order:
 
 1. infrastructure/setup_snowflake.sql
 2. infrastructure/setup_roles.sql
 3. infrastructure/create_raw_tables.sql
 4. infrastructure/create_raw_injuries.sql
+5. infrastructure/create_raw_rosters.sql
 
 The scripts create:
 
@@ -197,34 +206,36 @@ The scripts create:
 |---|---|
 | Warehouse | NFL_ANALYTICS_WH |
 | Database | NFL_INJURY_ANALYSIS |
-| Raw schema | RAW |
+| Schema | RAW |
 | Loader role | NFL_LOADER_ROLE |
-| IR table | RAW.IR_TRANSACTIONS |
-| Concussion table | RAW.CONCUSSIONS |
-| nflverse injury table | RAW.NFLVERSE_INJURIES |
+| Table | RAW.IR_TRANSACTIONS |
+| Table | RAW.CONCUSSIONS |
+| Table | RAW.NFLVERSE_INJURIES |
+| Table | RAW.NFLVERSE_ROSTERS |
+| Table | RAW.NFLVERSE_WEEKLY_ROSTERS |
 
-All RAW tables belong to the NFL_INJURY_ANALYSIS database.
+All tables belong to NFL_INJURY_ANALYSIS.
 
 The role setup assigns NFL_LOADER_ROLE to the user running the script.
 
-The warehouse is configured as X-Small, with automatic resume and
-automatic suspension after approximately 60 seconds of inactivity.
+The warehouse uses X-Small compute, automatic resume, and automatic
+suspension after approximately 60 seconds of inactivity.
 
-The setup scripts preserve existing objects. They do not automatically
-migrate an existing table whose structure differs from the saved SQL.
+Setup scripts preserve existing objects. They do not automatically
+migrate tables whose structures differ from the saved SQL.
 
-## 6. Configure the connection
+## 7. Configure the connection
 
 Copy .env.example to .env in the project root.
 
-Update these variables for the new account:
+Update:
 
 - SNOWFLAKE_ACCOUNT
 - SNOWFLAKE_USER
 - SNOWFLAKE_PASSWORD
 
-Use the organization-account identifier for SNOWFLAKE_ACCOUNT.
-Do not include https:// or the .snowflakecomputing.com suffix.
+Use the organization-account identifier for SNOWFLAKE_ACCOUNT,
+without https:// or the .snowflakecomputing.com suffix.
 
 Keep these project settings:
 
@@ -236,214 +247,262 @@ SNOWFLAKE_SCHEMA=RAW
 ```
 
 Never commit .env or upload it to GitHub.
-Keep only placeholder values in .env.example.
+Keep placeholder values in .env.example.
 
 Authentication must comply with the new account's settings, including
 MFA where required.
 
-Test the connection:
+Test:
 
 ```bash
 python ingestion/test_connection.py
 ```
 
-Confirm that the output shows the project role, warehouse, database,
-and schema listed above.
+Confirm the expected role, warehouse, database, and schema.
 
-## 7. Load the manually collected sources
+## 8. Load the source files
 
-Run:
+Run these commands sequentially:
 
 ```bash
 python ingestion/load_manual_sources.py
+python ingestion/load_nflverse_injuries.py
+python ingestion/load_nflverse_rosters.py
 ```
 
-For empty destination tables, expect:
+All loaders depend on functions defined in load_manual_sources.py.
+Keep that file available alongside the other ingestion scripts.
 
-- 5,356 rows loaded into RAW.IR_TRANSACTIONS.
-- 10 rows loaded into RAW.CONCUSSIONS.
+Run only one loader process at a time.
 
-The loader preserves source text, empty strings, and duplicate records.
+### Manual-source loading
+
+Both files are validated locally before loading.
+
+Source text, empty strings, and duplicate records are preserved.
 The CSV headers from and to map to FROM_TEAM and TO_TEAM.
 
-Each row receives:
+Each file is committed separately.
+
+### Injury-report loading
+
+All eleven files are validated locally before loading.
+
+Checks include expected headers, field counts, metadata checksums,
+and source season values.
+
+Absent source columns receive SQL NULL:
+
+- SEASON_TYPE for 2015–2024.
+- DATE_MODIFIED for 2025.
+
+Each season is committed separately.
+
+### Roster loading
+
+Archive-file existence is checked before connecting.
+Each source file is then validated and loaded individually.
+
+The loader:
+
+1. Checks headers, field counts, metadata checksum, and season values.
+2. Preserves all 36 source fields as text.
+3. Bulk-loads the prepared records into a temporary buffer table.
+4. Checks the buffer's file hash and row-number sequence.
+5. Inserts the records into RAW in a separate transaction.
+6. Verifies the RAW file hash and row-number sequence before committing.
+
+Buffer creation and bulk loading happen before the RAW transaction.
+Temporary buffer tables are removed when the connection closes.
+
+Each source file is committed separately. A failure in a later file
+does not roll back earlier committed files.
+
+### Record provenance
+
+All RAW tables include:
 
 - SOURCE_FILENAME
 - SOURCE_FILE_SHA256
 - SOURCE_ROW_NUMBER
 - LOADED_AT
 
+The nflverse tables also include SOURCE_FILE_SEASON.
+
 Row numbering starts at 1 for the first CSV data record, excluding
 the header. A CSV record may span multiple physical lines.
 
-Each file is committed separately. If a file fails before its commit,
-its inserts are rolled back. Previously committed files remain loaded.
+## 9. Expected row counts
 
-## 8. Load nflverse injury reports
+These baselines apply to the original project snapshots.
 
-Run:
-
-```bash
-python ingestion/load_nflverse_injuries.py
-```
-
-The loader imports shared connection and CSV-reading functions from
-ingestion/load_manual_sources.py. Both scripts must remain available.
-
-It validates all eleven local files before starting the load, including:
-
-- Expected CSV headers and field counts.
-- Checksums against the archived metadata.
-- Season values against the season expected from the filename.
-
-Source values are preserved as text. Columns absent from a source file
-receive SQL NULL:
-
-- SEASON_TYPE is NULL for the 2015–2024 snapshots.
-- DATE_MODIFIED is NULL for the 2025 snapshot.
-
-Each row also receives SOURCE_FILE_SEASON and the four metadata fields
-used by the manual-source loader.
-
-Each season is committed separately. A later failure does not roll back
-earlier committed seasons.
-
-Expected row counts for the original snapshots:
-
-| Season | Rows |
+| RAW table | Rows |
 |---|---:|
-| 2015 | 5,232 |
-| 2016 | 5,115 |
-| 2017 | 5,104 |
-| 2018 | 5,133 |
-| 2019 | 5,392 |
-| 2020 | 5,661 |
-| 2021 | 5,587 |
-| 2022 | 5,682 |
-| 2023 | 5,599 |
-| 2024 | 6,215 |
-| 2025 | 6,068 |
-| Total | 60,788 |
+| IR_TRANSACTIONS | 5,356 |
+| CONCUSSIONS | 10 |
+| NFLVERSE_INJURIES | 60,788 |
+| NFLVERSE_ROSTERS | 33,195 |
+| NFLVERSE_WEEKLY_ROSTERS | 498,381 |
 
-Newly downloaded source versions may have different counts or column
-structures. Investigate differences rather than treating updated
-sources as equivalent to the original snapshots.
+Season-level nflverse baselines:
 
-## 9. Verify the loaded tables
+| Season | Injury reports | Season rosters | Weekly rosters |
+|---|---:|---:|---:|
+| 2015 | 5,232 | 2,190 | 32,098 |
+| 2016 | 5,115 | 3,061 | 35,020 |
+| 2017 | 5,104 | 3,082 | 51,321 |
+| 2018 | 5,133 | 3,142 | 52,238 |
+| 2019 | 5,392 | 3,114 | 51,632 |
+| 2020 | 5,661 | 3,068 | 44,130 |
+| 2021 | 5,587 | 2,961 | 46,696 |
+| 2022 | 5,682 | 3,134 | 46,163 |
+| 2023 | 5,599 | 3,090 | 45,655 |
+| 2024 | 6,215 | 3,216 | 46,579 |
+| 2025 | 6,068 | 3,137 | 46,849 |
+| Total | 60,788 | 33,195 | 498,381 |
 
-Run the following SQL in Snowflake:
+Newly downloaded files may have different counts or structures.
+Investigate differences rather than treating updated sources as
+equivalent to the original snapshots.
+
+## 10. Verify the loaded tables
+
+Run in Snowflake:
 
 ```sql
 USE ROLE NFL_LOADER_ROLE;
 USE SECONDARY ROLES NONE;
 USE WAREHOUSE NFL_ANALYTICS_WH;
 
--- Verify the manually collected source snapshots.
-SELECT
-    'IR_TRANSACTIONS' AS source_table,
-    COUNT(*) AS row_count,
-    COUNT(DISTINCT SOURCE_FILE_SHA256) AS file_versions,
-    COUNT(DISTINCT SOURCE_ROW_NUMBER) AS distinct_row_numbers,
-    MIN(SOURCE_ROW_NUMBER) AS first_row_number,
-    MAX(SOURCE_ROW_NUMBER) AS last_row_number
+SELECT 'IR_TRANSACTIONS' AS source_table, COUNT(*) AS row_count
 FROM NFL_INJURY_ANALYSIS.RAW.IR_TRANSACTIONS
 
 UNION ALL
 
-SELECT
-    'CONCUSSIONS',
-    COUNT(*),
-    COUNT(DISTINCT SOURCE_FILE_SHA256),
-    COUNT(DISTINCT SOURCE_ROW_NUMBER),
-    MIN(SOURCE_ROW_NUMBER),
-    MAX(SOURCE_ROW_NUMBER)
-FROM NFL_INJURY_ANALYSIS.RAW.CONCUSSIONS;
+SELECT 'CONCUSSIONS', COUNT(*)
+FROM NFL_INJURY_ANALYSIS.RAW.CONCUSSIONS
+
+UNION ALL
+
+SELECT 'NFLVERSE_INJURIES', COUNT(*)
+FROM NFL_INJURY_ANALYSIS.RAW.NFLVERSE_INJURIES
+
+UNION ALL
+
+SELECT 'NFLVERSE_ROSTERS', COUNT(*)
+FROM NFL_INJURY_ANALYSIS.RAW.NFLVERSE_ROSTERS
+
+UNION ALL
+
+SELECT 'NFLVERSE_WEEKLY_ROSTERS', COUNT(*)
+FROM NFL_INJURY_ANALYSIS.RAW.NFLVERSE_WEEKLY_ROSTERS;
 ```
 
-Expected results:
+Compare the results with section 9.
 
-| Table | Rows | File versions | Distinct row numbers | First | Last |
-|---|---:|---:|---:|---:|---:|
-| IR_TRANSACTIONS | 5,356 | 1 | 5,356 | 1 | 5,356 |
-| CONCUSSIONS | 10 | 1 | 10 | 1 | 10 |
-
-Then verify nflverse files by season:
+Verify the nflverse loads by source season:
 
 ```sql
+WITH source_records AS (
+    SELECT
+        'NFLVERSE_INJURIES' AS source_table,
+        SOURCE_FILE_SEASON,
+        SOURCE_FILE_SHA256,
+        SOURCE_ROW_NUMBER
+    FROM NFL_INJURY_ANALYSIS.RAW.NFLVERSE_INJURIES
+
+    UNION ALL
+
+    SELECT
+        'NFLVERSE_ROSTERS',
+        SOURCE_FILE_SEASON,
+        SOURCE_FILE_SHA256,
+        SOURCE_ROW_NUMBER
+    FROM NFL_INJURY_ANALYSIS.RAW.NFLVERSE_ROSTERS
+
+    UNION ALL
+
+    SELECT
+        'NFLVERSE_WEEKLY_ROSTERS',
+        SOURCE_FILE_SEASON,
+        SOURCE_FILE_SHA256,
+        SOURCE_ROW_NUMBER
+    FROM NFL_INJURY_ANALYSIS.RAW.NFLVERSE_WEEKLY_ROSTERS
+)
 SELECT
+    source_table,
     SOURCE_FILE_SEASON,
     COUNT(*) AS row_count,
     COUNT(DISTINCT SOURCE_FILE_SHA256) AS file_versions,
     COUNT(DISTINCT SOURCE_ROW_NUMBER) AS distinct_row_numbers,
     MIN(SOURCE_ROW_NUMBER) AS first_row_number,
     MAX(SOURCE_ROW_NUMBER) AS last_row_number
-FROM NFL_INJURY_ANALYSIS.RAW.NFLVERSE_INJURIES
-GROUP BY SOURCE_FILE_SEASON
-ORDER BY SOURCE_FILE_SEASON;
+FROM source_records
+GROUP BY source_table, SOURCE_FILE_SEASON
+ORDER BY source_table, SOURCE_FILE_SEASON;
 ```
 
-For each season restored from the original archive:
+For every table and source season:
 
-- row_count must match the baseline in section 8.
+- row_count must match its baseline.
 - file_versions must equal 1.
 - distinct_row_numbers must equal row_count.
 - first_row_number must equal 1.
 - last_row_number must equal row_count.
 
-These checks verify counts and row numbering. They do not compare every
-loaded source value with its original CSV value.
+These checks verify counts and numbering, not every loaded source value.
 
-## 10. Verify safe sequential reruns
+## 11. Verify safe sequential reruns
 
-After the initial loads finish, run both loaders again:
+After the initial loads finish, run:
 
 ```bash
 python ingestion/load_manual_sources.py
 python ingestion/load_nflverse_injuries.py
+python ingestion/load_nflverse_rosters.py
 ```
 
 Expected behavior:
 
-- Both manually collected files report SKIPPED.
-- All eleven nflverse files report SKIPPED.
+- Two manual files report SKIPPED.
+- Eleven injury files report SKIPPED.
+- Twenty-two roster files report SKIPPED.
 - Table row counts remain unchanged.
 
-The loaders check stored file hashes and record numbering before
-skipping a file. They do not perform a value-by-value integrity check.
+The loaders check file fingerprints and row numbering before skipping.
+They do not compare every stored source value with the CSV.
 
-Run only one loader process at a time. The current implementation does
-not prevent concurrent processes from inserting the same file.
+Concurrent execution is not supported by the current implementation.
+The checks do not guarantee protection against simultaneous loaders.
 
-A different source version or an inconsistent existing load causes the
+A different source version or inconsistent existing load causes the
 loader to stop. Investigate before changing or deleting stored data.
 
-## 11. Verification status
+## 12. Backup and verification status
 
 Verified through successful execution in the initial account:
 
 - Python connection using NFL_LOADER_ROLE.
-- Initial loading of the two manually collected sources.
-- Sequential rerun skipping both unchanged manual sources.
-- Downloading eleven nflverse injury files with metadata.
-- Initial loading of all eleven nflverse injury files.
-- Sequential rerun skipping all eleven unchanged nflverse files.
+- Downloads of injury and roster snapshots with metadata.
+- Download rerun checks for the roster snapshots.
+- Initial loading of all five RAW datasets.
+- Sequential reruns skipping all previously loaded source files.
 
-The project author has also saved a copy of the original nflverse
-archive to a private Google Drive location. Recovery from that backup
-has not yet been tested.
+The project author has saved injury and roster archives to private
+Google Drive storage.
 
 Not yet verified:
 
+- Downloading and restoring the Google Drive backups.
 - Complete rebuild in a separate empty database or new account.
-- Downloading and restoring the private archive backup.
 - Recovery from interrupted loads.
-- Value-by-value comparison between source files and loaded tables.
+- Value-by-value comparison between CSV values and loaded RAW values.
 
 Still required:
 
-- Add roster ingestion and its rebuild instructions.
-- Add dbt transformations, tests, and analytical models.
-- Add dashboard and report rebuild instructions.
+- Configure dbt and transformation permissions.
+- Add staging models, player matching, tests, and analytical marts.
+- Add dashboard and narrative-report rebuild instructions.
 
-This guide documents the implemented pipeline and will be extended
-as additional components are completed.
+Update this guide when additional components are implemented or
+verification results change.
