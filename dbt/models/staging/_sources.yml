@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: nfl_raw
+    description: "Original source records loaded by the Python ingestion scripts."
+    database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+    schema: RAW
+
+    tables:
+      - name: concussions
+        identifier: CONCUSSIONS
+        description: >
+          Manually collected NFL concussion counts for 2015–2024.
+          Includes preseason and regular season, excluding postseason.
