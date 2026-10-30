@@ -506,3 +506,81 @@ Still required:
 
 Update this guide when additional components are implemented or
 verification results change.
+
+## Set up and run dbt
+
+Complete the RAW ingestion steps before building the staging model.
+Run terminal commands from the project root.
+
+### 1. Create the transformation role
+
+Run `infrastructure/setup_dbt_role.sql` in Snowflake using an
+administrative user with the required role-management permissions.
+
+This creates `NFL_TRANSFORMER_ROLE`, grants read access to RAW,
+and allows dbt to create output schemas in the project database.
+
+### 2. Create a separate Python environment
+
+The project currently uses Python 3.13.5.
+
+```bash
+python3 -m venv .venv-dbt
+source .venv-dbt/bin/activate
+python -m pip install -r requirements-dbt.txt
+python -m pip check
+```
+
+If `.venv-dbt` already exists with the dependencies installed,
+activate it without recreating it.
+
+### 3. Configure the connection
+
+Copy the tracked example to the local profile:
+
+```bash
+cp dbt/profiles.example.yml dbt/profiles.yml
+```
+
+The profile reads Snowflake credentials from the local `.env` file.
+For a new Snowflake account, update `.env` with the new credentials.
+
+Keep `.env` and `dbt/profiles.yml` out of version control.
+
+### 4. Verify the connection
+
+```bash
+dotenv -f .env run -- dbt debug --project-dir dbt --profiles-dir dbt
+```
+
+Expected result: `All checks passed!`
+
+### 5. Build and test the staging model
+
+```bash
+dotenv -f .env run -- dbt build --select stg_concussions --project-dir dbt --profiles-dir dbt
+```
+
+Current verified result:
+
+- One view created: `DBT_DEV_STAGING.STG_CONCUSSIONS`.
+- Six data tests passed.
+- No errors or warnings.
+
+The schema name combines the profile schema `DBT_DEV` with the
+model's custom schema `staging`.
+
+### 6. Inspect the output in Snowflake
+
+```sql
+SELECT *
+FROM NFL_INJURY_ANALYSIS.DBT_DEV_STAGING.STG_CONCUSSIONS
+ORDER BY season;
+```
+
+The current snapshot returns 10 rows for 2015–2024.
+Preseason game concussions for 2020 remain NULL.
+
+The connection, model build and initial tests have been verified
+in the current account. A complete rebuild in a new Snowflake
+account has not yet been tested.
