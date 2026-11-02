@@ -235,3 +235,38 @@ Row counts have been checked against the ingested source snapshots.
 These checks do not establish source completeness or validate every value.
 Deduplication, player matching, injury classification and analytical
 metrics remain to be implemented in subsequent models.
+
+## IR intermediate progress — 2026-11-02
+
+Two IR intermediate models are implemented and verified.
+
+### Deduplication
+
+`int_ir_transactions_deduplicated` groups records by season,
+transaction date, player name, From team, To team and transaction type.
+
+- Source records: 5,356.
+- Transactions after deduplication: 5,281.
+- Extra duplicate records removed: 75.
+- Each of the 75 affected transactions appeared twice.
+
+The model retains representative source metadata and a
+`source_record_count` showing how many source rows each transaction represents.
+
+### Team normalization
+
+`int_ir_transactions_team_normalized` maps the To team field
+to a common franchise code using the `team_aliases` seed.
+
+- Team aliases: 74.
+- Transactions retained: 5,281.
+- Transactions without a mapped team: 0.
+- Distinct franchises: 32.
+
+Historical team names and locations share a franchise code for matching.
+Original From and To values are retained.
+
+The selected IR pipeline build completed successfully:
+3 view models, 1 seed and 17 passing data tests, with no errors or warnings.
+
+Player matching and position enrichment remain to be implemented.
