@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: int_ir_transactions_deduplicated
+    description: >
+      IR transactions deduplicated by season, transaction date,
+      player name, From team, To team and transaction type.
+      Matching uses staging values without additional name normalization.
+      Position is not part of the deduplication rule.
+      Different transaction dates or teams remain separate.
+      An IR placement does not necessarily represent a season-ending injury.
+
+    columns:
+      - name: season
+        description: "NFL season assigned to the transaction."
+        data_tests:
+          - not_null
+
+      - name: transaction_date
+        description: "Calendar date on which the transaction occurred."
+        data_tests:
+          - not_null
+
+      - name: player_name
+        description: "Player name retained from staging."
+        data_tests:
+          - not_null
+
+      - name: source_position
+        description: >
+          Position from the representative source record.
+          Not used to identify duplicate transactions.
+
+      - name: from_team
+        description: "From column retained from staging."
+
+      - name: to_team
+        description: "To column retained from staging."
+
+      - name: transaction_type
+        description: "Transaction category retained from staging."
+
+      - name: source_record_count
+        description: >
+          Number of staging records grouped into this transaction,
+          including the representative record.
+        data_tests:
+          - not_null
+
+      - name: source_filename
+        description: "Filename of the representative source record."
+
+      - name: source_file_sha256
+        description: "File fingerprint of the representative source record."
+
+      - name: source_row_number
+        description: "Row number of the representative source record."
+
+      - name: loaded_at
+        description: "Ingestion timestamp of the representative source record."
