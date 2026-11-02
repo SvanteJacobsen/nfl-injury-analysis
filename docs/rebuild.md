@@ -618,3 +618,31 @@ Expected results for the current source snapshot:
 
 Staging retains duplicate source records. Deduplication and
 player matching will be implemented in subsequent models.
+
+
+## Build all staging models
+
+After completing RAW ingestion and dbt setup, activate the dbt
+environment and run the project from the repository root:
+
+```bash
+source .venv-dbt/bin/activate
+dotenv -f .env run -- dbt build --project-dir dbt --profiles-dir dbt
+```
+
+Verified on 2026-11-02:
+
+- 5 view models completed successfully.
+- 30 data tests passed.
+- PASS=35, WARN=0, ERROR=0, SKIP=0.
+
+Views are created in the `DBT_DEV_STAGING` schema.
+
+The tests check required values, concussion season uniqueness,
+IR date/season consistency, and agreement between nflverse row
+seasons and source-file seasons.
+
+Known missing roster player identifiers, names and positions are
+allowed and retained for later review.
+
+A complete recovery into a new Snowflake account remains untested.
