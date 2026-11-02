@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+  - name: nflverse_roster_raw
+    description: "Original nflverse roster snapshots loaded by Python."
+    database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+    schema: RAW
+
+    tables:
+      - name: rosters
+        identifier: NFLVERSE_ROSTERS
+        description: >
+          Season roster snapshots for 2015–2025.
+          Multiple records may exist for the same player and season.
+
+      - name: weekly_rosters
+        identifier: NFLVERSE_WEEKLY_ROSTERS
+        description: >
+          Weekly roster snapshots for 2015–2025.
+          These will be prepared in a separate staging model.
