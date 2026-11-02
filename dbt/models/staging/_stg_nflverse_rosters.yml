@@ -1,0 +1,67 @@
+version: 2
+
+models:
+  - name: stg_nflverse_rosters
+    description: >
+      Selected and lightly cleaned fields from season roster snapshots.
+      One row per original source record.
+      Player identifiers, names and positions may be missing.
+      Player-season uniqueness is not assumed.
+      Roster inclusion does not establish game participation or exposure.
+
+    columns:
+      - name: season
+        description: "NFL season reported in the source record."
+        data_tests:
+          - not_null
+
+      - name: gsis_id
+        description: >
+          Player identifier used for matching across datasets.
+          Missing identifiers are retained for later review.
+
+      - name: player_name
+        description: "Full player name supplied by the source."
+
+      - name: football_name
+        description: "Alternative player name supplied by the source."
+
+      - name: team
+        description: "Team abbreviation supplied by the source."
+        data_tests:
+          - not_null
+
+      - name: position
+        description: "Player position supplied by the source."
+
+      - name: depth_chart_position
+        description: "Depth-chart position supplied by the source."
+
+      - name: roster_status
+        description: "Roster status supplied by the source."
+
+      - name: roster_status_description
+        description: "Additional roster-status abbreviation from the source."
+
+      - name: source_game_type
+        description: "Competition phase retained from the season roster file."
+
+      - name: source_week
+        description: "Week retained from the season roster file."
+
+      - name: source_file_season
+        description: "Season of the file recorded during ingestion."
+        data_tests:
+          - not_null
+
+      - name: source_filename
+        description: "Name of the ingested source file."
+
+      - name: source_file_sha256
+        description: "SHA-256 fingerprint of the ingested source file."
+
+      - name: source_row_number
+        description: "Row number assigned during ingestion."
+
+      - name: loaded_at
+        description: "Timestamp when the record was loaded into RAW."
