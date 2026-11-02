@@ -244,3 +244,7 @@ profiles.yml
 
 # Local Python environment for dbt
 .venv-dbt/
+
+# Local editor and dbt user settings
+.vscode/
+/dbt/.user.yml
