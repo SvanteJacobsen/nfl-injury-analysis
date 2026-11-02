@@ -211,3 +211,27 @@ and one check of the August–February scope and season assignment.
 
 Deduplication and player matching have not yet been implemented
 in the dbt pipeline. IR placements are not treated as season-ending injuries.
+
+## Staging milestone — 2026-11-02
+
+All five staging models build successfully in a single dbt run.
+All 30 data tests pass, with no errors or warnings.
+
+| Model | Current snapshot rows |
+|---|---:|
+| stg_concussions | 10 |
+| stg_ir_transactions | 5356 |
+| stg_nflverse_injuries | 60788 |
+| stg_nflverse_rosters | 33195 |
+| stg_nflverse_weekly_rosters | 498381 |
+
+Staging applies basic type conversion and text cleanup while retaining
+source records and provenance. Roster models select the fields needed
+for matching and analysis; all original columns remain available in RAW.
+
+Known missing roster identifiers, names and positions are retained.
+Row counts have been checked against the ingested source snapshots.
+
+These checks do not establish source completeness or validate every value.
+Deduplication, player matching, injury classification and analytical
+metrics remain to be implemented in subsequent models.
