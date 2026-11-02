@@ -1,0 +1,23 @@
+version: 2
+
+seeds:
+  - name: team_aliases
+    description: >
+      Project mapping of observed NFL team names and abbreviations
+      to common franchise codes for cross-source matching.
+      Historical locations and names are grouped under one franchise.
+      Original source values remain available in upstream models.
+
+    columns:
+      - name: team_alias
+        description: "Lowercase team name or abbreviation used for matching."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: franchise_code
+        description: >
+          Common franchise code used by this project.
+          This does not identify a team's historical city or display name.
+        data_tests:
+          - not_null
