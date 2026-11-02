@@ -646,3 +646,54 @@ Known missing roster player identifiers, names and positions are
 allowed and retained for later review.
 
 A complete recovery into a new Snowflake account remains untested.
+
+## Build IR intermediate models
+
+After completing RAW ingestion and dbt setup, run these commands
+from the repository root:
+
+```bash
+source .venv-dbt/bin/activate
+dotenv -f .env run -- dbt build --select +int_ir_transactions_team_normalized --project-dir dbt --profiles-dir dbt
+```
+
+The leading `+` includes upstream dependencies, including the
+`team_aliases` seed and the preceding IR models.
+
+Verified result on 2026-11-02:
+
+- 3 view models built successfully.
+- 1 seed loaded with 74 mapping rows.
+- 17 data tests passed.
+- No errors or warnings.
+
+The intermediate views are created in `DBT_DEV_INTERMEDIATE`.
+With the current profile, the seed table is created in `DBT_DEV`.
+
+Verify deduplication in Snowflake:
+
+```sql
+SELECT
+    COUNT(*) AS deduplicated_transactions,
+    SUM(source_record_count) AS represented_source_records,
+    SUM(source_record_count - 1) AS duplicate_records_removed,
+    COUNT_IF(source_record_count > 1) AS transactions_with_duplicates
+FROM NFL_INJURY_ANALYSIS.DBT_DEV_INTERMEDIATE.INT_IR_TRANSACTIONS_DEDUPLICATED;
+```
+
+Expected values: 5281, 5356, 75 and 75 respectively.
+
+Verify team normalization:
+
+```sql
+SELECT
+    COUNT(*) AS transactions,
+    COUNT_IF(ir_team_code IS NULL) AS unmapped_team_records,
+    COUNT(DISTINCT ir_team_code) AS distinct_franchises
+FROM NFL_INJURY_ANALYSIS.DBT_DEV_INTERMEDIATE.INT_IR_TRANSACTIONS_TEAM_NORMALIZED;
+```
+
+Expected values: 5281, 0 and 32 respectively.
+
+Player matching and position enrichment are not yet implemented.
+A complete recovery into a new Snowflake account remains untested.
