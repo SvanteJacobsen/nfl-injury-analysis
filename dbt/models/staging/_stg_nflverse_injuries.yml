@@ -1,0 +1,86 @@
+version: 2
+
+models:
+  - name: stg_nflverse_injuries
+    description: >
+      Typed and lightly cleaned nflverse injury-report source records.
+      All original rows are retained. Repeated reports for the same
+      player must not automatically be counted as separate injuries.
+      Source coverage varies across seasons and competition phases.
+
+    columns:
+      - name: season
+        description: "NFL season reported in the source record."
+        data_tests:
+          - not_null
+
+      - name: week
+        description: "Season week number reported in the source."
+        data_tests:
+          - not_null
+
+      - name: game_type
+        description: "Competition phase code supplied by the source."
+        data_tests:
+          - not_null
+
+      - name: source_season_type
+        description: >
+          Additional season classification supplied in the 2025 file.
+          Not populated in the earlier source files.
+
+      - name: team
+        description: "Team abbreviation supplied by the source."
+        data_tests:
+          - not_null
+
+      - name: position
+        description: "Player position supplied in the injury-report source."
+
+      - name: gsis_id
+        description: "Player identifier used for matching across datasets."
+        data_tests:
+          - not_null
+
+      - name: player_name
+        description: "Full player name supplied by the source."
+        data_tests:
+          - not_null
+
+      - name: report_primary_injury
+        description: "Primary injury description from the game-status report."
+
+      - name: report_secondary_injury
+        description: "Secondary injury description from the game-status report."
+
+      - name: report_status
+        description: "Game-status designation supplied by the source."
+
+      - name: practice_primary_injury
+        description: "Primary injury description from the practice report."
+
+      - name: practice_secondary_injury
+        description: "Secondary injury description from the practice report."
+
+      - name: practice_status
+        description: "Practice participation designation supplied by the source."
+
+      - name: source_date_modified_text
+        description: "Source modification timestamp retained as text."
+
+      - name: source_file_season
+        description: "Season of the file recorded during ingestion."
+        data_tests:
+          - not_null
+
+      - name: source_filename
+        description: "Name of the ingested source file."
+
+      - name: source_file_sha256
+        description: "SHA-256 fingerprint of the ingested source file."
+
+      - name: source_row_number
+        description: "Row number assigned during ingestion."
+
+      - name: loaded_at
+        description: "Timestamp when the record was loaded into RAW."
