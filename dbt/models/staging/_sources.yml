@@ -19,3 +19,12 @@ sources:
           Manually collected Reserve/Injured transactions for seasons
           2015–2025, covering August through February.
           Original rows are retained, including duplicate records.
+
+      - name: nflverse_injuries
+        identifier: NFLVERSE_INJURIES
+        description: >
+          nflverse injury-report records from the downloaded
+          2015–2025 season snapshots.
+          Observed coverage includes regular season and postseason,
+          with missing later postseason rounds in the 2023 snapshot.
+          One source record does not necessarily represent a new injury.
