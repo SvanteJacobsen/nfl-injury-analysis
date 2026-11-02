@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: int_ir_transactions_team_normalized
+    description: >
+      Deduplicated IR transactions enriched with a common franchise code.
+      The code is mapped from the original To team field.
+      Original transaction fields and provenance are retained.
+      Player matching and position enrichment are not yet applied.
+
+    columns:
+      - name: ir_team_code
+        description: "Common franchise code mapped from to_team."
+        data_tests:
+          - not_null
