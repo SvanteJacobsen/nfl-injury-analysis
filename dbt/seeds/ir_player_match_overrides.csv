@@ -1,0 +1,184 @@
+season,transaction_date,player_name_key,ir_team_code,gsis_id,review_reason
+2021,2021-11-27,michael carter,NYJ,00-0036924,User identified the transaction as the running back; both roster sources associate this ID with RB
+2016,2016-10-18,justin march,KC,00-0031999,Name variant confirmed by project owner on 2026-11-03; roster name: Justin March-Lillard
+2017,2017-09-15,donnel pumphrey,PHI,00-0033561,Name variant confirmed by project owner on 2026-11-03; roster name: DJ Pumphrey
+2017,2017-09-04,temuchin hodges,MIN,00-0033966,Name variant confirmed by project owner on 2026-11-03; roster name: Bucky Hodges
+2018,2019-01-01,lano hill,SEA,00-0033931,Name variant confirmed by project owner on 2026-11-03; roster name: Delano Hill
+2019,2019-12-10,cedrick wilson jr.,DAL,00-0034418,Name variant confirmed by project owner on 2026-11-03; roster name: Ced Wilson
+2019,2019-12-17,takk mckinley,ATL,00-0033540,Name variant confirmed by project owner on 2026-11-03; roster name: Takkarist McKinley
+2020,2020-12-19,deonte harty,NO,00-0035215,Name variant confirmed by project owner on 2026-11-03; roster name: Deonte Harris
+2020,2020-11-24,josh hines-allen,JAX,00-0035642,Name variant confirmed by project owner on 2026-11-03; roster name: Josh Allen
+2020,2020-09-26,joshua uche,NE,00-0036159,Name variant confirmed by project owner on 2026-11-03; roster name: Josh Uche
+2020,2020-12-31,joshua uche,NE,00-0036159,Name variant confirmed by project owner on 2026-11-03; roster name: Josh Uche
+2020,2020-10-20,ogbo okoronkwo,LA,00-0034807,Name variant confirmed by project owner on 2026-11-03; roster name: Obo Okoronkwo / Ogbonnia Okoronkwo
+2020,2020-11-27,takk mckinley,LV,00-0033540,Name variant confirmed by project owner on 2026-11-03; roster name: Takkarist McKinley
+2021,2021-10-19,alexander johnson,DEN,00-0034887,Name variant confirmed by project owner on 2026-11-03; roster name: A.J. Johnson
+2021,2021-11-13,c.j. gardner-johnson,NO,00-0035253,Name variant confirmed by project owner on 2026-11-03; roster name: Chauncey Gardner-Johnson
+2021,2021-09-25,cameron brown,NYG,00-0036400,Name variant confirmed by project owner on 2026-11-03; roster name: Cam Brown
+2021,2021-10-12,chris hubbard,CLE,00-0029963,Name variant confirmed by project owner on 2026-11-03; roster name: Christopher Hubbard
+2021,2021-10-07,dee eskridge,SEA,00-0036620,Name variant confirmed by project owner on 2026-11-03; roster name: D'Wayne Eskridge
+2021,2021-09-02,elerson g. smith,NYG,00-0036895,Name variant confirmed by project owner on 2026-11-03; roster name: Elerson Smith
+2021,2022-01-05,elerson g. smith,NYG,00-0036895,Name variant confirmed by project owner on 2026-11-03; roster name: Elerson Smith
+2021,2022-02-11,joe noteboom,LA,00-0034803,Name variant confirmed by project owner on 2026-11-03; roster name: Joseph Noteboom
+2021,2021-10-23,joseph fortson,KC,00-0035547,Name variant confirmed by project owner on 2026-11-03; roster name: Joe Fortson
+2021,2021-11-17,joshua uche,NE,00-0036159,Name variant confirmed by project owner on 2026-11-03; roster name: Josh Uche
+2021,2021-09-02,ogbo okoronkwo,LA,00-0034807,Name variant confirmed by project owner on 2026-11-03; roster name: Ogbonnia Okoronkwo
+2021,2022-01-07,pat surtain ii,DEN,00-0036874,Name variant confirmed by project owner on 2026-11-03; roster name: Patrick Surtain
+2021,2021-11-29,sam cosmi,WAS,00-0036618,Name variant confirmed by project owner on 2026-11-03; roster name: Samuel Cosmi
+2021,2021-11-05,sebastian joseph-day,LA,00-0034810,Name variant confirmed by project owner on 2026-11-03; roster name: Sebastian Joseph
+2021,2021-12-21,takk mckinley,CLE,00-0033540,Name variant confirmed by project owner on 2026-11-03; roster name: Takkarist McKinley
+2021,2021-10-09,trent brown,NE,00-0032071,Name variant confirmed by project owner on 2026-11-03; roster name: Trenton Brown
+2022,2022-12-03,c.j. gardner-johnson,PHI,00-0035253,Name variant confirmed by project owner on 2026-11-03; roster name: Chauncey Gardner-Johnson
+2022,2022-11-26,dee eskridge,SEA,00-0036620,Name variant confirmed by project owner on 2026-11-03; roster name: D'Wayne Eskridge
+2022,2022-09-01,elerson g. smith,NYG,00-0036895,Name variant confirmed by project owner on 2026-11-03; roster name: Elerson Smith
+2022,2022-12-15,elerson g. smith,NYG,00-0036895,Name variant confirmed by project owner on 2026-11-03; roster name: Elerson Smith
+2022,2022-11-05,jacob hummel,LA,00-0037633,Name variant confirmed by project owner on 2026-11-03; roster name: Jake Hummel
+2022,2022-10-18,joe noteboom,LA,00-0034803,Name variant confirmed by project owner on 2026-11-03; roster name: Joseph Noteboom
+2022,2022-12-23,joseph fortson,KC,00-0035547,Name variant confirmed by project owner on 2026-11-03; roster name: Joe Fortson
+2022,2022-11-07,nick williams,NYG,00-0030500,Name variant confirmed by project owner on 2026-11-03; roster name: Nicholas Williams
+2022,2022-10-17,ola adeniyi,TEN,00-0034204,Name variant confirmed by project owner on 2026-11-03; roster name: Olasunkanmi Adeniyi
+2023,2023-11-25,chris hubbard,TEN,00-0029963,Name variant confirmed by project owner on 2026-11-03; roster name: Christopher Hubbard
+2023,2023-12-30,dee eskridge,SEA,00-0036620,Name variant confirmed by project owner on 2026-11-03; roster name: D'Wayne Eskridge
+2023,2023-12-08,joe jones,TEN,00-0033659,Name variant confirmed by project owner on 2026-11-03; roster name: Joseph Jones
+2023,2023-10-14,matthew judon,NE,00-0032415,Name variant confirmed by project owner on 2026-11-03; roster name: Matt Judon
+2023,2023-08-31,pepe williams,BAL,00-0037984,Name variant confirmed by project owner on 2026-11-03; roster name: Damarion Williams
+2023,2024-01-15,pepe williams,BAL,00-0037984,Name variant confirmed by project owner on 2026-11-03; roster name: Damarion Williams
+2023,2023-08-31,rob beal jr.,SF,00-0038603,Name variant confirmed by project owner on 2026-11-03; roster name: Robert Beal / Robert Beal Jr.
+2024,2024-09-28,foyesade oluokun,JAX,00-0034413,Name variant confirmed by project owner on 2026-11-03; roster name: Foye Oluokun
+2015,2015-09-02,josh allen,TB,00-0030833,Project owner confirmed the offensive lineman on 2026-11-03; distinguished from the BUF quarterback and JAX defender
+2015,2015-09-06,tony washington,HOU,00-0031931,Project owner confirmed the linebacker on 2026-11-03; distinguished from the wide receiver
+2020,2020-09-06,armani taylor-prioleau,CLE,00-0036120,Project owner confirmed the Alex Taylor name variant on 2026-11-03; roster observations share the same player ID
+2015,2015-09-02,anthony denham,HOU,00-0031140,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-05,arthur jones,IND,00-0027756,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-01,bennett jackson,NYG,00-0031188,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-02,brandon mosley,NYG,00-0029283,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-05,brett jones,NYG,00-0031489,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-05,chad slade,HOU,00-0031928,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-05,corey wootton,DET,00-0027603,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-08-31,dante fowler jr.,JAX,00-0032052,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-12,davis tull,NO,00-0031946,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-01,e.j. gaines,LA,00-0031394,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-06,garrett gilkey,TB,00-0030476,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-05,gerald christian,ARI,00-0032190,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-10,ifeanyi momah,ARI,00-0029740,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-01,jacorey shepherd,PHI,00-0032137,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-01,james develin,NE,00-0027925,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-06,jayson dimanche,CIN,00-0029815,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-08-31,jeff heuerman,DEN,00-0032227,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-01,jimmy hall,LV,00-0031882,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-01,jordy nelson,GB,00-0026176,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-08-31,josh wells,JAX,00-0030829,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-05,junior sylvestre,IND,00-0031525,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-01,kelvin benjamin,CAR,00-0031359,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-05,kenny bell,TB,00-0032113,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-06,marquis flowers,CIN,00-0031290,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-08-31,matt elam,BAL,00-0030559,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-01,menelik watson,LV,00-0030579,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-01,michael bowie,CLE,00-0030490,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-05,mohammed seisay,SEA,00-0030730,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-08-17,mykkele thompson,NYG,00-0031586,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-05,nat berhe,NYG,00-0031070,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-01,orlando scandrick,DAL,00-0026283,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-01,p.j. williams,NO,00-0032059,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-09,paul fanaika,KC,00-0026943,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-01,reshard cliett,HOU,00-0031616,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-01,senorise perry,CHI,00-0031209,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-01,senquez golson,PIT,00-0032105,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-08-31,tevin mitchel,IND,00-0032066,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-05,tom savage,HOU,00-0031064,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2015,2015-09-02,torrence allen,LAC,00-0030914,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2016
+2016,2016-09-03,garrett reynolds,LA,00-0027110,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2015
+2021,2021-09-01,jimmy moreland,WAS,00-0035307,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2020
+2021,2021-11-23,jomal wiltz,MIA,00-0033734,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2020
+2022,2022-08-30,henry anderson,NE,00-0032269,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2021
+2024,2024-08-28,chris brooks,MIA,00-0038685,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2023
+2024,2024-08-28,kyle philips,TEN,00-0037273,Identity confirmed by project owner on 2026-11-03; same franchise roster observation in 2023
+2015,2015-09-06,a.j. cruz,CHI,00-0032270,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-02,akeem hunt,NYG,00-0031743,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-05,arthur miley,CAR,00-0031871,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-05,brandian ross,LV,00-0028601,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,chi chi ariguzo,LAC,00-0032074,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-07,chimdi chekwa,LV,00-0028051,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-02,chris davis,LAC,00-0030917,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,colton underwood,LAC,00-0030926,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-01,connor shaw,CLE,00-0030661,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,corey washington,NYG,00-0030897,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-01,darryl roberts,NE,00-0031628,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-02,dashaun phillips,NYJ,00-0030963,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,deangelo tyson,BAL,00-0029309,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,deonte thompson,BUF,00-0029388,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-01,desmond bishop,SF,00-0025579,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-02,dominique davis,PIT,00-0031776,Project owner confirmed the Steelers defensive lineman IR transaction in 2015 on 2026-11-03; roster candidate is a defensive lineman
+2015,2015-09-01,dres anderson,SF,00-0031504,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,evan spencer,WAS,00-0031954,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-05,greg salas,DET,00-0028050,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-01,jace amaro,NYJ,00-0031042,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,jermauria rasco,GB,00-0031835,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-08,josh martin,KC,00-0030160,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-01,justin march,KC,00-0031999,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-07,kadeem edwards,TB,00-0031180,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,kelvin palmer,PIT,00-0030890,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-05,kendall hunter,SF,00-0028053,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-02,korey toomer,LA,00-0029289,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,larry pinkard,GB,00-0031834,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-02,leonard johnson,TB,00-0029087,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,lynden trail,HOU,00-0031930,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-02,matt daniels,JAX,00-0028871,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-02,melvin white,CAR,00-0030259,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,mitchell van dyk,PIT,00-0031396,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-02,nick toon,NO,00-0029667,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,patrick murray,TB,00-0030626,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-05,richard gordon,KC,00-0028119,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-05,robert turbin,SEA,00-0029273,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-02,ronald powell,NO,00-0031073,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-05,rory anderson,SF,00-0032072,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,ryan groy,NE,00-0031128,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-08-31,steven means,BAL,00-0030387,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-02,terrance parks,HOU,00-0029328,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,tyrus thompson,MIN,00-0031604,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-02,vinnie sunseri,NO,00-0031072,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-05,zaviar gooden,TEN,00-0030502,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-05,ziggy hood,JAX,00-0027008,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2016,2016-09-03,ron thompson,IND,00-0032359,Identity confirmed by project owner on 2026-11-03; candidate found across roster seasons and franchises
+2015,2015-09-06,adam replogle,ATL,00-0029781,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-05,anthony jefferson,CHI,00-0031909,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-06,anthony morris,LV,00-0032119,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-01,anthony spencer,NO,00-0025413,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,brad smelley,LA,00-0029315,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,cameron clear,PIT,00-0031774,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-08-31,chris greenwood,BAL,00-0029213,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-05,collin mooney,ATL,00-0028876,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,davonte wallace,CAR,00-0030873,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-01,garrett hartley,PIT,00-0025824,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,gordon hill,LAC,00-0032086,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,javess blue,GB,00-0031823,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-05,jeff maehl,PHI,00-0028543,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-06,jerome smith,ATL,00-0030746,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-06,jimmy legree,ARI,00-0030901,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-05,jon asamoah,ATL,00-0027673,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-06,jordan campbell,WAS,00-0029863,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-01,josh gordy,NYG,00-0027503,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,junior hemingway,KC,00-0029311,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-06,ka'lial glaud,DAL,00-0030032,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,kenneth boatright,DAL,00-0030208,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-08-19,kevin brock,NO,00-0026699,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-01,kevin vickerson,NYJ,00-0023648,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-05,larry english,TB,00-0026992,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,luke lundy,CLE,00-0031973,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-06,marion grice,ARI,00-0030999,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-06,micajah reynolds,BAL,00-0030810,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,michael hill,DAL,00-0030320,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,mike kafka,MIN,00-0027722,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,onterio mccalebb,CIN,00-0029864,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,r.j. dill,DAL,00-0029943,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,ray hamilton,PIT,00-0031749,Project owner confirmed the tight end born in 1992 on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,robert herron,TB,00-0031187,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-06,rod sweeting,DAL,00-0030224,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-06,sanders commings,KC,00-0030462,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-05,travis howard,ATL,00-0030234,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-08-18,ty powell,BUF,00-0030118,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-02,tyson chandler,BUF,00-0031634,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-05,yawin smallwood,TEN,00-0031195,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2015,2015-09-05,zach thompson,BAL,00-0030948,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2016,2016-08-31,justin renfrow,BUF,00-0030893,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
+2016,2016-08-30,rakim cox,CAR,00-0030933,Identity confirmed by project owner on 2026-11-03; ID from nflverse players.csv
