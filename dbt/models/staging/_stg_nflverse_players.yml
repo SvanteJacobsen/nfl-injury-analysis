@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: stg_nflverse_players
+    description: >
+      Player identities and general position attributes from the archived
+      nflverse register. Position attributes are not specific to an
+      injury season or transaction date.
+
+    columns:
+      - name: gsis_id
+        description: "Player identifier used to join project datasets."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: player_name
+        description: "Player display name supplied by nflverse."
+
+      - name: position
+        description: >
+          General player position from the register.
+          Intended as a fallback when season-specific roster data is missing.
+
+      - name: source_position_group
+        description: "Original nflverse position grouping."
+
+      - name: latest_team
+        description: >
+          Latest team recorded in this snapshot.
+          Must not be interpreted as the team at a historical IR transaction.
+
+      - name: source_file_sha256
+        description: "SHA256 checksum identifying the archived source file."
+        data_tests:
+          - not_null
+
+      - name: source_row_number
+        description: "Record number within the archived source file."
+        data_tests:
+          - not_null
