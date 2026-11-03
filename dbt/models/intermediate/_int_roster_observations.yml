@@ -1,0 +1,64 @@
+version: 2
+
+models:
+  - name: int_roster_observations
+    description: >
+      Combined season and weekly roster observations.
+      One row per original source record, retaining source provenance.
+      Team codes use the same franchise mapping as IR transactions.
+      Name keys apply lowercase and trim only.
+      Repeated observations do not represent different players.
+      A season-level candidate does not confirm team membership
+      on a specific transaction date.
+
+    columns:
+      - name: roster_source
+        description: "Identifies the season_roster or weekly_roster source."
+        data_tests:
+          - not_null
+
+      - name: season
+        description: "NFL season of the roster observation."
+        data_tests:
+          - not_null
+
+      - name: week
+        description: "Week retained from the corresponding source record."
+
+      - name: game_type
+        description: "Competition phase retained from the source."
+
+      - name: gsis_id
+        description: >
+          Player identifier. Missing values are retained.
+          Candidate counts must use distinct nonmissing identifiers.
+
+      - name: player_name
+        description: "Original full name retained from staging."
+
+      - name: player_name_key
+        description: >
+          Lowercase, trimmed full name for initial matching.
+          Punctuation, accents and suffixes are preserved.
+
+      - name: team
+        description: "Original team abbreviation retained from staging."
+
+      - name: roster_team_code
+        description: "Common franchise code mapped from the source team."
+        data_tests:
+          - not_null
+
+      - name: position
+        description: >
+          Position in this observation.
+          Different observations may contain different positions.
+
+      - name: source_filename
+        description: "Original filename retained for traceability."
+
+      - name: source_file_sha256
+        description: "Fingerprint of the original source file."
+
+      - name: source_row_number
+        description: "Row number assigned during ingestion."
