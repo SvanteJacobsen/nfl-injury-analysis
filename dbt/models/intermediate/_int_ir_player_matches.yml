@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: int_ir_player_matches
+    description: >
+      Initial IR player matching using the same season, lowercase
+      trimmed full name and normalized franchise code.
+      All IR transactions are retained.
+      A player ID is assigned only when exactly one distinct roster
+      identity matches. No fuzzy matching or manual overrides are used.
+      Matching does not confirm team membership on the transaction date.
+
+    columns:
+      - name: player_name_key
+        description: "Lowercase, trimmed IR player name used for matching."
+        data_tests:
+          - not_null
+
+      - name: candidate_player_count
+        description: >
+          Number of distinct nonmissing player IDs matching season,
+          name key and franchise code.
+        data_tests:
+          - not_null
+
+      - name: matched_gsis_id
+        description: >
+          Player ID assigned only for a single matching identity.
+          NULL for unmatched or ambiguous transactions.
+
+      - name: candidate_gsis_ids
+        description: "Ordered list of candidate IDs available for review."
+
+      - name: player_match_status
+        description: >
+          matched_exact means one identity fits the current rule;
+          ambiguous means several fit; unmatched means none fit.
+          An exact match is not independent verification of identity.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - matched_exact
+                  - ambiguous
+                  - unmatched
