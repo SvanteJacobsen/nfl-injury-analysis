@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: nflverse_players_raw
+    description: "Archived nflverse player-register snapshot."
+    database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+    schema: RAW
+
+    tables:
+      - name: players
+        identifier: NFLVERSE_PLAYERS
+        description: >
+          Original player-register values and ingestion metadata.
+          This register is not a historical record of positions by season.
