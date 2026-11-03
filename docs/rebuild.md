@@ -697,3 +697,100 @@ Expected values: 5281, 0 and 32 respectively.
 
 Player matching and position enrichment are not yet implemented.
 A complete recovery into a new Snowflake account remains untested.
+
+## Additional rebuild steps — checkpoint 2026-11-03
+
+These steps supplement the existing infrastructure, ingestion, and dbt
+setup instructions.
+
+### Restore the player-register snapshot
+
+Restore the archived source file to:
+
+`data/raw/players.csv`
+
+Source URL:
+
+https://github.com/nflverse/nflverse-data/releases/download/players/players.csv
+
+The URL may provide a newer snapshot in the future. To reproduce this
+checkpoint, use the archived file with this SHA256 checksum:
+
+`dd4e38586b4d9982098760b823d87367824a1a58c80a1fb77f00273b73ee33e5`
+
+The player-register loader requires this exact checksum. Keep the snapshot
+with the project data backups.
+
+### Create and load the RAW table
+
+Run `infrastructure/create_raw_players.sql` in Snowflake.
+
+From the project root, run the loader using the ingestion environment:
+
+```bash
+.venv/bin/python ingestion/load_nflverse_players.py
+```
+
+Expected source row count: 24,863.
+
+A sequential rerun verifies and skips an existing complete load.
+A different or incomplete destination load causes the script to stop.
+Run one loader process at a time.
+
+### Build player-register staging
+
+Using the dbt environment, run:
+
+```bash
+dotenv -f .env run -- dbt build --select stg_nflverse_players --project-dir dbt --profiles-dir dbt
+```
+
+Expected result: one view and four passing data tests.
+
+### Rebuild IR identity matching
+
+Restore the original IR and roster sources using the earlier instructions.
+Keep the current models, macro, and reviewed decision seed from the
+repository, then run:
+
+```bash
+dotenv -f .env run -- dbt build --select +int_ir_player_matches_normalized --project-dir dbt --profiles-dir dbt
+```
+
+The leading `+` includes upstream models and seeds.
+
+Expected identity results:
+
+| Status | Transactions |
+|---|---:|
+| matched_exact | 5,046 |
+| matched_manual | 183 |
+| matched_normalized | 49 |
+| unmatched | 3 |
+| Total | 5,281 |
+
+The reviewed decision seed contains 183 transaction-specific decisions.
+Preserve the seed to reproduce those assignments.
+
+For this checkpoint, the selected build passed 50 data tests.
+
+### Inspect results in Snowflake
+
+Use NFL_TRANSFORMER_ROLE to inspect dbt models.
+NFL_LOADER_ROLE is used for RAW ingestion.
+
+### Remaining work
+
+Position assignment has not yet been implemented. Inspect roster position
+conflicts before building the assignment model.
+
+Planned position-source priority:
+
+1. Same season and franchise in roster data.
+2. Same season, another franchise in roster data.
+3. General position from the player register.
+4. Other roster seasons only where the observed position is unambiguous.
+
+The three unresolved identities remain in the IR dataset.
+
+A full rebuild in a new Snowflake account has not yet been verified.
