@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: int_ir_player_matches_normalized
+    description: >
+      Preserves existing identity decisions and attempts to match
+      remaining IR transactions using standardized player names
+      within the same season and franchise.
+      Normalized matches are rule-based identity assignments.
+
+    columns:
+      - name: normalized_candidate_count
+        description: >
+          Number of distinct roster player IDs found through normalized
+          matching for a previously unmatched transaction.
+          Zero for transactions that were already resolved.
+        data_tests:
+          - not_null
+
+      - name: final_gsis_id
+        description: >
+          Previously resolved player ID, or the sole candidate ID from
+          normalized matching. Null when identity remains unresolved.
+
+      - name: final_match_status
+        description: "Identity matching status after normalized matching."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - matched_exact
+                  - matched_manual
+                  - matched_normalized
+                  - ambiguous
+                  - unmatched
