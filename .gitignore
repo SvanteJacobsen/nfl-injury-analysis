@@ -226,6 +226,7 @@ __marimo__/
 /data/raw/*
 !/data/raw/ir_transactions.csv
 !/data/raw/concussions.csv
+!/data/raw/players.csv
 
 # Local credentials and connection settings
 .env.*
