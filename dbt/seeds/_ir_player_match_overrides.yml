@@ -1,0 +1,43 @@
+version: 2
+
+seeds:
+  - name: ir_player_match_overrides
+    description: >
+      Reviewed player-identity decisions scoped to an IR transaction
+      by season, date, name key and franchise code.
+      These decisions supplement the automatic matching results.
+
+    config:
+      column_types:
+        gsis_id: varchar
+
+    columns:
+      - name: season
+        description: "NFL season to which the decision applies."
+        data_tests:
+          - not_null
+
+      - name: transaction_date
+        description: "Transaction date to which the decision applies."
+        data_tests:
+          - not_null
+
+      - name: player_name_key
+        description: "Lowercase, trimmed IR player name."
+        data_tests:
+          - not_null
+
+      - name: ir_team_code
+        description: "IR franchise code to which the decision applies."
+        data_tests:
+          - not_null
+
+      - name: gsis_id
+        description: "Player ID selected during review."
+        data_tests:
+          - not_null
+
+      - name: review_reason
+        description: "Evidence and reasoning supporting the decision."
+        data_tests:
+          - not_null
