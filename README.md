@@ -269,4 +269,48 @@ Original From and To values are retained.
 The selected IR pipeline build completed successfully:
 3 view models, 1 seed and 17 passing data tests, with no errors or warnings.
 
-Player matching and position enrichment remain to be implemented.
+## Player identity matching — checkpoint 2026-11-03
+
+The IR identity pipeline combines season and weekly roster observations,
+standardizes franchise names, and matches players within the same season
+and franchise.
+
+The matching process preserves the initial automatic result, applies
+documented manual decisions from a dbt seed, and attempts additional
+matches using standardized player names.
+
+Current results across 5,281 deduplicated IR transactions:
+
+| Identity status | Transactions |
+|---|---:|
+| matched_exact | 5,046 |
+| matched_manual | 183 |
+| matched_normalized | 49 |
+| unmatched | 3 |
+
+Identity coverage is 5,278 of 5,281 transactions, approximately 99.94%.
+This measures coverage, not independently verified matching accuracy.
+
+The three unresolved transactions concern Christion Jones, Jimmie Hunt,
+and Melvin Meggs. These records remain in the dataset.
+
+The selected IR matching build passed 50 data tests.
+
+### Player register
+
+An archived nflverse player-register snapshot has been loaded into
+RAW.NFLVERSE_PLAYERS and exposed through stg_nflverse_players.
+
+Verified staging results:
+
+- 24,863 records, matching the RAW row count.
+- 24,863 distinct player IDs.
+- No missing player IDs or positions.
+- All four staging tests passed.
+
+The register provides general player attributes rather than historical
+positions by season. It will supplement season-specific roster data.
+
+Position assignment to IR transactions has not yet been implemented.
+The next step is to inspect conflicting roster positions and implement
+documented source priorities.
