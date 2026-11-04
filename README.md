@@ -311,6 +311,40 @@ Verified staging results:
 The register provides general player attributes rather than historical
 positions by season. It will supplement season-specific roster data.
 
-Position assignment to IR transactions has not yet been implemented.
-The next step is to inspect conflicting roster positions and implement
-documented source priorities.
+
+## IR position-group checkpoint — 2026-11-04
+
+The IR intermediate pipeline now assigns broad position groups while
+preserving all 5,281 deduplicated IR transactions.
+
+- 5,278 transactions have an assigned position group.
+- 3 transactions retain unresolved player identities and null position groups.
+- No position-group conflicts remain in the current result.
+- The shared mapping contains 27 source position codes.
+- The position override seed contains 38 reviewed decisions.
+- Analytical groups: QB, RB, TE, WR, OL, DL, LB, DB, and K/P/LS.
+
+Position evidence is selected in this order:
+1. Reviewed player-season-franchise decision.
+2. Roster evidence for the same season and franchise.
+3. Roster evidence for the same season across franchises.
+4. Player-register position.
+5. Unambiguous roster evidence from other seasons.
+
+Conflicts at the selected roster evidence level remain unresolved unless
+covered by a reviewed decision. Original source positions are preserved.
+Season-based roster evidence does not establish the exact position on
+the IR transaction date.
+
+The source code PR remains unmapped globally. Devon Bell has a specific
+2016 Detroit decision assigning K/P/LS.
+
+Validation:
+- Latest selected build: 4 seeds, 11 views, and 75 data tests.
+- PASS=90, WARN=0, ERROR=0.
+- Transaction preservation, override-key uniqueness, and assignment
+  consistency checks passed.
+
+Next step: create fct_ir_placements with one row per IR placement.
+IR placements are transactions, not necessarily distinct injuries or
+season-ending injuries.
