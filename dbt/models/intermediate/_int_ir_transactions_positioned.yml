@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: int_ir_transactions_positioned
+    description: >
+      IR transactions enriched with broad position groups.
+      Reviewed decisions take priority over roster and register evidence.
+      Conflicting groups at the selected evidence level remain unresolved.
+      Roster evidence is season-based rather than specific to the IR date.
+
+    columns:
+      - name: final_position_group
+        description: Broad analytical group, null when unresolved.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - QB
+                  - RB
+                  - TE
+                  - WR
+                  - OL
+                  - DL
+                  - LB
+                  - DB
+                  - K/P/LS
+
+      - name: position_group_source
+        description: Evidence level selected for the position decision.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - reviewed
+                  - same_season_team
+                  - same_season
+                  - player_register
+                  - other_seasons
+                  - none
+
+      - name: position_group_status
+        description: Whether position assignment succeeded or remains unresolved.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - assigned
+                  - ambiguous
+                  - missing_identity
+                  - missing_position
+
+      - name: selected_position_group_count
+        description: Number of distinct groups at the selected evidence level.
+        data_tests:
+          - not_null
+
+      - name: position_group_review_reason
+        description: Review provenance when a manual position decision is applied.
