@@ -1,0 +1,31 @@
+version: 2
+
+seeds:
+  - name: position_group_mapping
+    description: >
+      Shared mapping from source position codes to broad analytical groups.
+      PR and missing source positions remain unmapped pending review.
+
+    columns:
+      - name: position_code
+        description: Standardized position code from the source data.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: position_group
+        description: Broad position group used in the analysis.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - QB
+                  - RB
+                  - TE
+                  - WR
+                  - OL
+                  - DL
+                  - LB
+                  - DB
+                  - K/P/LS
