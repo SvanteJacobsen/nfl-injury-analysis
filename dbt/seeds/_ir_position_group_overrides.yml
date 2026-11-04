@@ -1,0 +1,52 @@
+version: 2
+
+seeds:
+  - name: ir_position_group_overrides
+    description: >
+      Position groups reviewed by the project owner.
+      Each decision applies to one player, season, and franchise.
+
+    config:
+      column_types:
+        gsis_id: varchar
+
+    columns:
+      - name: season
+        description: NFL season covered by the reviewed decision.
+        data_tests:
+          - not_null
+
+      - name: ir_team_code
+        description: Normalized franchise code for the IR transaction.
+        data_tests:
+          - not_null
+
+      - name: gsis_id
+        description: Player identifier used to apply the reviewed decision.
+        data_tests:
+          - not_null
+
+      - name: player_name
+        description: Readable player name for reviewing the seed.
+
+      - name: position_group
+        description: Position group selected by the project owner.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - QB
+                  - RB
+                  - TE
+                  - WR
+                  - OL
+                  - DL
+                  - LB
+                  - DB
+                  - K/P/LS
+
+      - name: review_reason
+        description: Provenance of the reviewed position-group decision.
+        data_tests:
+          - not_null
