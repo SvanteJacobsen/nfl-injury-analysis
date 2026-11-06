@@ -1,0 +1,87 @@
+version: 2
+
+models:
+  - name: fct_injury_reports
+    description: >-
+      One retained weekly report per player, team, season, week and
+      game type. Includes all reports regardless of classification.
+      Filter has_injury_information to true when analyzing reports
+      containing injury information. Rows are not distinct injury
+      events. A false flag does not establish that a player is healthy.
+      Original descriptions, classification coverage and source
+      metadata remain available in intermediate models.
+      The 2023 source lacks DIV, CON and SB coverage.
+
+    columns:
+      - name: injury_report_id
+        description: Source-snapshot-derived report identifier.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: season
+        description: NFL season associated with the report.
+        data_tests:
+          - not_null
+
+      - name: season_phase
+        description: REG for regular season or POST for playoffs.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['REG', 'POST']
+
+      - name: game_type
+        description: Original game type or playoff round.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['REG', 'WC', 'DIV', 'CON', 'SB']
+
+      - name: week
+        description: Week number as supplied by the source.
+        data_tests:
+          - not_null
+
+      - name: team_code
+        description: Shared standardized franchise code.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('team_aliases')
+                field: franchise_code
+
+      - name: gsis_id
+        description: Player identifier used for distinct player counts.
+        data_tests:
+          - not_null
+
+      - name: player_name
+        description: Player name supplied by the source.
+
+      - name: position_group
+        description: Standardized analytical position group.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - QB
+                  - RB
+                  - TE
+                  - WR
+                  - OL
+                  - DL
+                  - LB
+                  - DB
+                  - K/P/LS
+
+      - name: has_injury_information
+        description: >-
+          True when at least one report description contains injury
+          information. May coexist with illness or non-injury content.
+        data_tests:
+          - not_null
