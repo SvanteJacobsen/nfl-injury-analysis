@@ -7,7 +7,6 @@ where
         and (
             final_position_group is null
             or selected_position_group_count <> 1
-            or final_gsis_id is null
         )
     )
     or (
@@ -24,4 +23,9 @@ where
             position_group_source <> 'reviewed'
             or final_position_group is distinct from reviewed_position_group
         )
+    )
+    or (
+        final_gsis_id is null
+        and final_position_group is not null
+        and position_group_source <> 'reviewed'
     )
