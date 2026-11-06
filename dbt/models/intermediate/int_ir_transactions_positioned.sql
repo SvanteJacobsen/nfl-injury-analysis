@@ -73,8 +73,17 @@ position_evidence as (
     -- Keep every IR transaction and attach summarized evidence.
     select
         t.*,
-        o.position_group as reviewed_position_group,
-        o.review_reason as position_group_review_reason,
+
+        -- Combine transaction-specific and player-based reviewed decisions.
+        coalesce(
+            q.position_group,
+            o.position_group
+        ) as reviewed_position_group,
+
+        coalesce(
+            q.review_reason,
+            o.review_reason
+        ) as position_group_review_reason,
 
         coalesce(st.group_count, 0) as same_season_team_group_count,
         st.candidate_group as same_season_team_candidate,
@@ -93,6 +102,14 @@ position_evidence as (
         on t.season = o.season
         and t.ir_team_code = o.ir_team_code
         and t.final_gsis_id = o.gsis_id
+
+    -- Apply transaction-specific decisions only when the player ID is missing.
+    left join {{ ref('ir_transaction_position_overrides') }} as q
+        on t.season = q.season
+        and t.transaction_date = q.transaction_date
+        and t.ir_team_code = q.ir_team_code
+        and t.player_name_key = q.player_name_key
+        and t.final_gsis_id is null
 
     left join same_season_team as st
         on t.season = st.season
@@ -163,10 +180,11 @@ select
             then selected_position_group_candidate
     end as final_position_group,
 
+    -- Position assignment is independent of player-ID resolution.
     case
-        when final_gsis_id is null then 'missing_identity'
         when selected_position_group_count > 1 then 'ambiguous'
         when selected_position_group_count = 1 then 'assigned'
+        when final_gsis_id is null then 'missing_identity'
         else 'missing_position'
     end as position_group_status
 
