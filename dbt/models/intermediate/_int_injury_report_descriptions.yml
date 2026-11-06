@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: int_injury_report_descriptions
+    description: >
+      One row per populated injury-description field in a retained
+      weekly report. These rows are description occurrences,
+      not distinct injuries.
+
+    columns:
+      - name: injury_description_id
+        description: Identifier for one description field in an archived report.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: source_field
+        description: Original field containing the description.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - report_primary_injury
+                  - report_secondary_injury
+                  - practice_primary_injury
+                  - practice_secondary_injury
+
+      - name: injury_description
+        description: Original description retained from staging.
+        data_tests:
+          - not_null
+
+      - name: injury_description_key
+        description: Lowercase trimmed description used for classification.
+        data_tests:
+          - not_null

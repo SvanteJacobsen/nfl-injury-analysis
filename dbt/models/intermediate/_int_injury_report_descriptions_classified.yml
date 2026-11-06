@@ -1,0 +1,66 @@
+version: 2
+
+models:
+  - name: int_injury_report_descriptions_classified
+    description: >
+      Description occurrences enriched with exact-text classification
+      and information flags. Flags describe individual source fields,
+      not distinct injuries or report-level inclusion.
+      Unmapped descriptions remain available with needs_review status.
+
+    columns:
+      - name: injury_description_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: description_class
+        description: Analytical classification, null when no mapping exists.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - injury
+                  - illness
+                  - non_injury
+                  - evaluation
+                  - unspecified
+                  - injury_and_illness
+                  - injury_and_non_injury
+                  - health_other
+                  - covid_related
+
+      - name: classification_status
+        description: Whether an exact-text classification rule was found.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - mapped
+                  - needs_review
+
+      - name: has_injury_information
+        description: >
+          True when the description contains reported injury information.
+          Null when unmapped.
+
+      - name: has_illness_information
+        description: >
+          True when the description contains explicit illness information.
+          Null when unmapped.
+
+      - name: has_non_injury_information
+        description: >
+          True when the description contains a non-injury absence reason.
+          Null when unmapped.
+
+      - name: has_other_health_information
+        description: >
+          True for health or symptom information not classified as injury
+          or illness. Null when unmapped.
+
+      - name: has_covid_related_information
+        description: >
+          True for covid-related references, without asserting confirmed
+          infection. Null when unmapped.

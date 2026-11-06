@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: int_injury_reports_positioned
+    description: >-
+      One row per retained weekly injury report with a standardized
+      position group. The report position takes priority. Unmatched
+      positions may use an unambiguous weekly roster group from the
+      same player, season, week and team for regular-season reports.
+      Original position values remain available for traceability.
+
+    columns:
+      - name: injury_report_id
+        description: Identifier of the retained weekly report.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: cleaned_position
+        description: >-
+          Uppercase source position with surrounding spaces, tabs
+          and line breaks removed. Empty values become null.
+
+      - name: reported_position_group
+        description: Group mapped directly from the report position.
+
+      - name: roster_position_group_count
+        description: Number of distinct groups in the fallback evidence.
+        data_tests:
+          - not_null
+
+      - name: position_group
+        description: Final standardized analytical position group.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - QB
+                  - RB
+                  - TE
+                  - WR
+                  - OL
+                  - DL
+                  - LB
+                  - DB
+                  - K/P/LS
+
+      - name: position_group_source
+        description: Source used to assign the final position group.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - injury_report
+                  - weekly_roster
+                  - ambiguous_roster
+                  - none

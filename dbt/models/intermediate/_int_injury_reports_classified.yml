@@ -1,0 +1,63 @@
+version: 2
+
+models:
+  - name: int_injury_reports_classified
+    description: >
+      One retained weekly report enriched with information flags
+      summarized across its four description fields.
+      Flags may overlap. False means no matching information was found,
+      not that the player was healthy.
+      All reports are retained, including missing descriptions.
+      Report IDs depend on the archived source snapshot.
+
+    columns:
+      - name: injury_report_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: description_count
+        description: Number of populated description fields in the report.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1, 2, 3, 4]
+                quote: false
+
+      - name: unmapped_description_count
+        description: Number of description fields without classification rules.
+        data_tests:
+          - not_null
+
+      - name: report_classification_status
+        description: Classification coverage across the report's description fields.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - mapped
+                  - needs_review
+                  - missing_description
+
+      - name: has_injury_information
+        description: At least one description field contains injury information.
+
+      - name: has_illness_information
+        description: At least one description field contains illness information.
+
+      - name: has_non_injury_information
+        description: At least one description field contains a non-injury absence reason.
+
+      - name: has_other_health_information
+        description: At least one description field contains other health information.
+
+      - name: has_covid_related_information
+        description: At least one description field contains a covid-related reference.
+
+      - name: has_evaluation_information
+        description: At least one description field is classified as evaluation.
+
+      - name: has_unspecified_information
+        description: At least one description field is classified as unspecified.

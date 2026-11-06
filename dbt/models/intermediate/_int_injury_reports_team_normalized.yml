@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: int_injury_reports_team_normalized
+    description: >-
+      One row per retained weekly injury report with a standardized
+      franchise code from the shared team alias mapping. Historical
+      aliases are consolidated using the same convention as the IR
+      models. The original team value remains available in team.
+
+    columns:
+      - name: injury_report_id
+        description: Identifier of the retained weekly report.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: team
+        description: Original team value from the injury report.
+
+      - name: team_code
+        description: Standardized franchise code.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('team_aliases')
+                field: franchise_code

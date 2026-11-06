@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: int_injury_reports_deduplicated
+    description: >
+      One report per season, game type, week, team, and player ID.
+      Retains the latest source timestamp when multiple versions exist.
+      Original versions remain available in staging.
+      No injury classification or filtering is applied.
+
+    columns:
+      - name: season
+        data_tests:
+          - not_null
+
+      - name: game_type
+        data_tests:
+          - not_null
+
+      - name: week
+        data_tests:
+          - not_null
+
+      - name: team
+        data_tests:
+          - not_null
+
+      - name: gsis_id
+        data_tests:
+          - not_null
+
+      - name: source_modified_at
+        description: >
+          Parsed source update timestamp. May be null when absent
+          from the source or when the source value cannot be parsed.
+
+      - name: source_record_count
+        description: Number of source versions represented by the retained report.
+        data_tests:
+          - not_null

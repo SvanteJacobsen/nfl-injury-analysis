@@ -1,0 +1,54 @@
+version: 2
+
+models:
+  - name: int_injury_report_categories
+    description: >-
+      One row per retained weekly injury report and standardized injury
+      category. Repeated mentions across source fields are consolidated.
+      A report can have multiple categories. Rows represent reported
+      categories, not distinct injury events or confirmed diagnoses.
+      Reports without injury information have no rows in this model
+      and remain available in int_injury_reports_classified.
+
+    columns:
+      - name: injury_report_category_id
+        description: >-
+          Source-snapshot-derived identifier for a report and category pair.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: injury_report_id
+        description: Identifier of the retained weekly report.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('int_injury_reports_classified')
+                field: injury_report_id
+
+      - name: source_file_sha256
+        description: Hash of the original source file.
+        data_tests:
+          - not_null
+
+      - name: source_row_number
+        description: Row number of the retained source record.
+        data_tests:
+          - not_null
+
+      - name: injury_category
+        description: Standardized category from the mapping seed.
+        data_tests:
+          - not_null
+
+      - name: source_field_count
+        description: >-
+          Number of distinct description fields mentioning this category
+          within the retained report.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4]
+                quote: false
