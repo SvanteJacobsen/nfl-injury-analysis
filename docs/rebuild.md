@@ -793,4 +793,110 @@ Planned position-source priority:
 
 The three unresolved identities remain in the IR dataset.
 
-A full rebuild in a new Snowflake account has not yet been verified.
+## Build the IR placement mart
+
+### Prerequisites
+
+Complete the RAW ingestion and staging steps for IR transactions,
+rosters, weekly rosters, and the player register.
+
+Ensure these seeds are available:
+- team_aliases
+- ir_player_match_overrides
+- position_group_mapping
+- ir_position_group_overrides
+- ir_transaction_position_overrides
+
+The transaction-specific position seed contains three reviewed decisions:
+- Jimmie Hunt: WR, GB, 2015-09-02
+- Melvin Meggs: OL, LAC, 2015-09-02
+- Christion Jones: WR, MIA, 2015-09-06
+
+These decisions assign position groups without assigning gsis_id values.
+They match on season, transaction date, normalized team code, and
+player_name_key, and apply only while the player ID remains unresolved.
+
+Keep the normalized franchise code LAC for the historical Melvin Meggs
+record, as used by this project's team normalization.
+
+### Activate the dbt environment
+
+Run from the project root:
+
+```bash
+source .venv-dbt/bin/activate
+```
+
+Use .venv-dbt for dbt commands. The separate .venv environment is used
+for ingestion scripts.
+
+### Build and test
+
+```bash
+dotenv -f .env run -- dbt build --select +fct_ir_placements ir_transaction_position_overrides_target_one_transaction ir_position_overrides_are_unique --project-dir dbt --profiles-dir dbt
+```
+
+The leading + includes upstream dependencies. The two explicitly named
+seed-level tests check reviewed decision keys and transaction targets.
+
+The pipeline:
+1. Loads the required seeds.
+2. Builds upstream staging and intermediate models.
+3. Applies reviewed positions independently of player-ID resolution.
+4. Creates NFL_INJURY_ANALYSIS.DBT_DEV_MARTS.FCT_IR_PLACEMENTS.
+5. Runs selected data tests, including record preservation,
+   placement-ID uniqueness, and position-assignment consistency.
+
+The mart contains one row per deduplicated IR placement.
+It does not aggregate placements by player or season.
+
+### Verify the result in Snowflake
+
+Use NFL_TRANSFORMER_ROLE and NFL_ANALYTICS_WH.
+
+```sql
+select
+    count(*) as ir_placements,
+    count(distinct ir_placement_id) as distinct_placement_ids,
+    count_if(gsis_id is null) as placements_without_player_id,
+    count_if(position_group is null) as placements_without_position_group
+from NFL_INJURY_ANALYSIS.DBT_DEV_MARTS.FCT_IR_PLACEMENTS;
+```
+
+Expected results for the archived project inputs:
+
+| Check | Expected |
+|---|---:|
+| IR placements | 5281 |
+| Distinct placement IDs | 5281 |
+| Placements without player ID | 3 |
+| Placements without position group | 0 |
+
+The three unresolved register identities remain visible in the mart.
+Their position groups come from project-owner-reviewed decisions.
+
+### Interpretation and traceability
+
+- Count mart rows to measure IR placements.
+- Count distinct gsis_id values to measure identified unique players.
+  This excludes unresolved IDs.
+- Recalculate distinct player counts at the selected reporting level;
+  do not sum distinct counts across teams or position groups.
+- source_record_count includes original duplicate source records.
+  Its sum is not the number of IR placements.
+- Placement IDs are derived from source_file_sha256 and
+  source_row_number. They may change if the source snapshot changes.
+- IR placements are not necessarily distinct injuries or
+  season-ending injuries.
+
+### Validation checkpoint — 2026-11-06
+
+The selected build executed successfully:
+- 5 seeds
+- 11 view models
+- 1 table model
+- 97 data tests
+- PASS=114, WARN=0, ERROR=0
+
+This validates the selected pipeline in the existing environment.
+A complete rebuild in a fresh Snowflake account has not yet been verified.
