@@ -345,6 +345,31 @@ Validation:
 - Transaction preservation, override-key uniqueness, and assignment
   consistency checks passed.
 
-Next step: create fct_ir_placements with one row per IR placement.
-IR placements are transactions, not necessarily distinct injuries or
-season-ending injuries.
+## IR mart checkpoint — 2026-11-06
+
+Created DBT_DEV_MARTS.FCT_IR_PLACEMENTS with one row per
+deduplicated IR placement.
+
+Verified results:
+- 5,281 placements and 5,281 distinct placement identifiers.
+- All placements have a broad position group.
+- 3 placements retain unresolved gsis_id values.
+- Transaction-specific reviewed decisions assign WR to Jimmie Hunt,
+  OL to Melvin Meggs, and WR to Christion Jones.
+- Position assignment remains separate from player-ID resolution.
+
+Placement identifiers are derived from the archived source file hash
+and retained row number; they may change if the source snapshot changes.
+
+Latest selected build:
+- 5 seeds, 11 views, 1 table, and 97 passing data tests.
+- PASS=114, WARN=0, ERROR=0.
+- Mart record preservation and placement-ID uniqueness checks passed.
+
+Metric definitions:
+- Placement counts include every mart row.
+- Distinct gsis_id counts exclude unresolved identities and must be
+  recalculated for the selected reporting level.
+- IR placements are not necessarily distinct or season-ending injuries.
+
+Next step: inspect and transform injury-report data.
