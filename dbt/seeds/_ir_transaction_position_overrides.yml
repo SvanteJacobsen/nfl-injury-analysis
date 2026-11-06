@@ -1,0 +1,48 @@
+version: 2
+
+seeds:
+  - name: ir_transaction_position_overrides
+    description: >
+      Reviewed position groups for individual IR transactions
+      whose player identifiers remain unresolved.
+
+    config:
+      column_types:
+        transaction_date: date
+
+    columns:
+      - name: season
+        data_tests:
+          - not_null
+
+      - name: transaction_date
+        data_tests:
+          - not_null
+
+      - name: ir_team_code
+        data_tests:
+          - not_null
+
+      - name: player_name_key
+        data_tests:
+          - not_null
+
+      - name: position_group
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - QB
+                  - RB
+                  - TE
+                  - WR
+                  - OL
+                  - DL
+                  - LB
+                  - DB
+                  - K/P/LS
+
+      - name: review_reason
+        data_tests:
+          - not_null
