@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: bridge_injury_report_categories
+    description: >-
+      One row per retained injury report and standardized injury
+      category. The combination of injury_report_id and injury_category
+      identifies a unique row. A report can have multiple categories.
+      Repeated mentions of the same category across description fields
+      are consolidated upstream. Rows are not distinct injury events.
+      Count distinct injury_report_id when counting reports across
+      multiple categories.
+
+    columns:
+      - name: injury_report_id
+        description: Report associated with the category.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fct_injury_reports')
+                field: injury_report_id
+
+      - name: injury_category
+        description: Standardized analytical injury category.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('injury_description_category_mapping')
+                field: injury_category
