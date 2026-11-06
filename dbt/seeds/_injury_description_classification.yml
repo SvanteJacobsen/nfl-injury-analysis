@@ -1,0 +1,36 @@
+version: 2
+
+seeds:
+  - name: injury_description_classification
+    description: >
+      Exact-text analytical classification of injury-report descriptions.
+      Categories describe source information rather than distinct injury
+      events or independently verified diagnoses.
+      Mixed descriptions preserve multiple types of information.
+      Health_other avoids forcing health or symptom descriptions into
+      injury or illness. Covid_related does not confirm infection.
+      Descriptions without a mapping require further review.
+
+    columns:
+      - name: injury_description_key
+        description: Lowercase trimmed description matched as a complete string.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: description_class
+        description: Analytical meaning of the complete source description.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - injury
+                  - illness
+                  - non_injury
+                  - evaluation
+                  - unspecified
+                  - injury_and_illness
+                  - injury_and_non_injury
+                  - health_other
+                  - covid_related

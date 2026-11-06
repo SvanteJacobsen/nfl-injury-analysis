@@ -1,0 +1,32 @@
+version: 2
+
+seeds:
+  - name: injury_description_category_mapping
+    description: >-
+      Exact mapping from injury description keys to standardized analytical
+      categories. One row represents one description and category pair.
+      A description can map to multiple categories. Categories retain the
+      specificity of the source and mix anatomical labels with explicitly
+      reported conditions such as concussion and stinger. They are not a
+      clinical diagnostic hierarchy. Laterality is omitted from the category;
+      original descriptions remain available in upstream models.
+      Unspecified non-football injuries map to unspecified_injury without
+      inferring an anatomical location. Non-football origin must still be
+      identified from the original description if needed for analysis.
+      The Tremble description maps to back because its text attributes game
+      status to a back injury after clearance from concussion protocol.
+    columns:
+      - name: injury_description_key
+        description: >-
+          Exact lowercased and trimmed description key from the classified
+          description model. Repeated keys are expected for multiple categories.
+        data_tests:
+          - not_null
+
+      - name: injury_category
+        description: >-
+          Standardized analytical label. Illness and non-injury components of
+          mixed descriptions remain represented by the upstream classification
+          flags and do not generate injury categories here.
+        data_tests:
+          - not_null

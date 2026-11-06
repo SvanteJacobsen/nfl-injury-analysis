@@ -1,0 +1,304 @@
+injury_description_key,injury_category
+abdomen,abdomen
+abdomen / illness,abdomen
+"abdomen, shoulder",abdomen
+"abdomen, shoulder",shoulder
+abdomen/throat/back,abdomen
+abdomen/throat/back,back
+abdomen/throat/back,throat
+achilles,achilles
+achilles - out,achilles
+adductor,adductor
+ankle,ankle
+ankle / knee,ankle
+ankle / knee,knee
+ankle / shoulder,ankle
+ankle / shoulder,shoulder
+"ankle [not injury related - personal, thursday only]",ankle
+ankle elbow,ankle
+ankle elbow,elbow
+"ankle, ankle",ankle
+"ankle, elbow",ankle
+"ankle, elbow",elbow
+"ankle, hamstring",ankle
+"ankle, hamstring",hamstring
+"ankle, knee",ankle
+"ankle, knee",knee
+"ankle, knee, elbow",ankle
+"ankle, knee, elbow",elbow
+"ankle, knee, elbow",knee
+ankles,ankle
+arm,arm
+back,back
+back foot,back
+back foot,foot
+"back, ankle",ankle
+"back, ankle",back
+"back, ankle, knee",ankle
+"back, ankle, knee",back
+"back, ankle, knee",knee
+"back, toe",back
+"back, toe",toe
+"back, toe, rest",back
+"back, toe, rest",toe
+bicep,biceps
+biceps,biceps
+both knees,knee
+burner,stinger
+buttocks,glute
+calf,calf
+calf shoulder,calf
+calf shoulder,shoulder
+"calf, illness",calf
+"calf, resting veteran",calf
+calves,calf
+chest,chest
+chin,chin
+clavicle,collarbone
+coccyx,tailbone
+collarbone,collarbone
+concussion,concussion
+concussion. tremble has cleared concussion protocol. his game status is a result of a back injury.,back
+core,core
+core muscle,core
+core muscle injury,core
+ear,ear
+elbow,elbow
+elbow and knee,elbow
+elbow and knee,knee
+elbow ankle,ankle
+elbow ankle,elbow
+elbow knee,elbow
+elbow knee,knee
+"elbow, knee",elbow
+"elbow, knee",knee
+"elbow, toe, knee",elbow
+"elbow, toe, knee",knee
+"elbow, toe, knee",toe
+eye,eye
+face,face
+facial laceration,face
+feet,foot
+fibula,fibula
+finger,finger
+finger ankle,ankle
+finger ankle,finger
+finger illness,finger
+foot,foot
+foot back,back
+foot back,foot
+"foot, groin",foot
+"foot, groin",groin
+foot/wrist/hip,foot
+foot/wrist/hip,hip
+foot/wrist/hip,wrist
+forearm,forearm
+forehead,head
+glute,glute
+groin,groin
+"groin, knee, ankle",ankle
+"groin, knee, ankle",groin
+"groin, knee, ankle",knee
+"groin, wrist",groin
+"groin, wrist",wrist
+hamstring,hamstring
+"hamstring, abdomen",abdomen
+"hamstring, abdomen",hamstring
+"hamstring, wrist",hamstring
+"hamstring, wrist",wrist
+hamstrings,hamstring
+hand,hand
+"hand, groin",groin
+"hand, groin",hand
+"hand, illness",hand
+"hand, neck",hand
+"hand, neck",neck
+hands,hand
+head,head
+heel,heel
+hip,hip
+hip flexor,hip
+hip/shoulder (rt.),hip
+hip/shoulder (rt.),shoulder
+hips,hip
+jaw,jaw
+kidney,kidney
+knee,knee
+knee / hamstring,hamstring
+knee / hamstring,knee
+knee finger,finger
+knee finger,knee
+knee illness,knee
+knee neck,knee
+knee neck,neck
+"knee, achilles",achilles
+"knee, achilles",knee
+"knee, ankle",ankle
+"knee, ankle",knee
+"knee, ankle, back",ankle
+"knee, ankle, back",back
+"knee, ankle, back",knee
+"knee, back, toe",back
+"knee, back, toe",knee
+"knee, back, toe",toe
+"knee, foot",foot
+"knee, foot",knee
+"knee, hamstring",hamstring
+"knee, hamstring",knee
+"knee, illness",knee
+"knee, shoulder",knee
+"knee, shoulder",shoulder
+"knee, toe, rest",knee
+"knee, toe, rest",toe
+knee/shoulder,knee
+knee/shoulder,shoulder
+knee/shoulder/toe,knee
+knee/shoulder/toe,shoulder
+knee/shoulder/toe,toe
+knees,knee
+left ankle,ankle
+left biceps,biceps
+left calf,calf
+left elbow,elbow
+left finger,finger
+left foot,foot
+left groin,groin
+left hamstring,hamstring
+left hand,hand
+left hip,hip
+left knee,knee
+left quadricep,quadriceps
+left shoulder,shoulder
+"left shoulder, left elbow",elbow
+"left shoulder, left elbow",shoulder
+left thigh,thigh
+left thumb,thumb
+left wrist,wrist
+lips,lips
+liver,liver
+low back,back
+lower leg,lower_leg
+lumbar,back
+lung,lung
+mouth,mouth
+neck,neck
+neck stinger,neck
+neck stinger,stinger
+"neck, back",back
+"neck, back",neck
+non football injury,unspecified_injury
+non-football injury,unspecified_injury
+nose,nose
+"nose, back",back
+"nose, back",nose
+oblique,oblique
+"oblique, knee",knee
+"oblique, knee",oblique
+other-stinger,stinger
+pec / knee,knee
+pec / knee,pectoral
+"pec, knee",knee
+"pec, knee",pectoral
+pectoral,pectoral
+pelvis,pelvis
+quad,quadriceps
+quadricep,quadriceps
+"quadricep, ankle, knee",ankle
+"quadricep, ankle, knee",knee
+"quadricep, ankle, knee",quadriceps
+"quadricep, triceps",quadriceps
+"quadricep, triceps",triceps
+rib,ribs
+rib cage,ribs
+"rib, ankle",ankle
+"rib, ankle",ribs
+"rib, illness",ribs
+"rib, not injury related - rest",ribs
+ribs,ribs
+ribs / shoulder / illness,ribs
+ribs / shoulder / illness,shoulder
+ribs knee,knee
+ribs knee,ribs
+"ribs, back",back
+"ribs, back",ribs
+"ribs, not injury related - res",ribs
+"ribs, triceps",ribs
+"ribs, triceps",triceps
+right ankle,ankle
+right arm (laceration),arm
+right biceps,biceps
+right calf,calf
+right collarbone,collarbone
+right elbow,elbow
+right elbow   back,back
+right elbow   back,elbow
+right finger,finger
+right foot,foot
+right forearm,forearm
+right groin,groin
+right hamstring,hamstring
+right hand,hand
+right hip,hip
+right knee,knee
+right quadricep,quadriceps
+right shin,shin
+right shoulder,shoulder
+"right shoulder, rib",ribs
+"right shoulder, rib",shoulder
+right thigh,thigh
+right thumb,thumb
+right upper arm,upper_arm
+right wrist,wrist
+shin,shin
+shin laceration,shin
+shoulder,shoulder
+"shoulder, biceps, hand",biceps
+"shoulder, biceps, hand",hand
+"shoulder, biceps, hand",shoulder
+"shoulder, finger",finger
+"shoulder, finger",shoulder
+"shoulder, hamstring",hamstring
+"shoulder, hamstring",shoulder
+"shoulder, illness",shoulder
+"shoulder, knee",knee
+"shoulder, knee",shoulder
+shoulder/toe/knee,knee
+shoulder/toe/knee,shoulder
+shoulder/toe/knee,toe
+solar plexus,solar_plexus
+sternoclavicular,sternoclavicular
+sternum,sternum
+stinger,stinger
+tailbone,tailbone
+teeth,teeth
+thigh,thigh
+thigh/non-injury,thigh
+thighs,thigh
+third injury: ankle,ankle
+throat,throat
+thumb,thumb
+thumb and neck,neck
+thumb and neck,thumb
+"thumb, foot",foot
+"thumb, foot",thumb
+thumb/not injury related - per,thumb
+tibia,tibia
+toe,toe
+"toe, achilles, hip",achilles
+"toe, achilles, hip",hip
+"toe, achilles, hip",toe
+"toe, hamstring",hamstring
+"toe, hamstring",toe
+"toe, pec, knee, hip",hip
+"toe, pec, knee, hip",knee
+"toe, pec, knee, hip",pectoral
+"toe, pec, knee, hip",toe
+tooth,teeth
+trap,trapezius
+trapezius,trapezius
+tricep,triceps
+triceps,triceps
+upper arm,upper_arm
+wrist,wrist
+"wrist, knee",knee
+"wrist, knee",wrist

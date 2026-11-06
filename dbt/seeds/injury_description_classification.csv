@@ -1,0 +1,285 @@
+injury_description_key,description_class
+abdomen,injury
+achilles,injury
+ankle,injury
+back,injury
+biceps,injury
+calf,injury
+chest,injury
+concussion,injury
+elbow,injury
+finger,injury
+foot,injury
+forearm,injury
+groin,injury
+hamstring,injury
+hand,injury
+heel,injury
+hip,injury
+knee,injury
+neck,injury
+oblique,injury
+pectoral,injury
+quadricep,injury
+rib,injury
+ribs,injury
+shin,injury
+shoulder,injury
+thigh,injury
+thumb,injury
+toe,injury
+triceps,injury
+wrist,injury
+illness,illness
+illness (non-covid),illness
+not injury related,non_injury
+not injury related - resting player,non_injury
+not injury related - resting p,non_injury
+not injury related - personal matter,non_injury
+not injury related - personal,non_injury
+rest,non_injury
+resting veteran,non_injury
+jury duty,non_injury
+gameday concussion protocol evaluation,evaluation
+concussion evaluation,evaluation
+--,unspecified
+other,unspecified
+medical,unspecified
+right shoulder,injury
+fibula,injury
+right thumb,injury
+left shoulder,injury
+right groin,injury
+right elbow,injury
+eye,injury
+left knee,injury
+right hip,injury
+right quadricep,injury
+glute,injury
+head,injury
+collarbone,injury
+right finger,injury
+right wrist,injury
+pelvis,injury
+right hamstring,injury
+right knee,injury
+core muscle,injury
+left thumb,injury
+lower leg,injury
+stinger,injury
+core,injury
+left hand,injury
+jaw,injury
+kidney,injury
+right hand,injury
+tricep,injury
+tibia,injury
+tooth,injury
+left ankle,injury
+left finger,injury
+left wrist,injury
+throat,injury
+ankles,injury
+lung,injury
+nose,injury
+left hamstring,injury
+hips,injury
+rib cage,injury
+right ankle,injury
+knees,injury
+left foot,injury
+low back,injury
+right forearm,injury
+sternoclavicular,injury
+right calf,injury
+right foot,injury
+right thigh,injury
+upper arm,injury
+adductor,injury
+core muscle injury,injury
+face,injury
+hamstrings,injury
+left calf,injury
+left groin,injury
+left hip,injury
+teeth,injury
+bicep,injury
+hands,injury
+left quadricep,injury
+liver,injury
+ear,injury
+right shin,injury
+sternum,injury
+buttocks,injury
+hip flexor,injury
+left elbow,injury
+lumbar,injury
+mouth,injury
+both knees,injury
+clavicle,injury
+facial laceration,injury
+feet,injury
+left thigh,injury
+quad,injury
+right collarbone,injury
+right upper arm,injury
+trapezius,injury
+arm,injury
+calves,injury
+chin,injury
+coccyx,injury
+forehead,injury
+left biceps,injury
+lips,injury
+right arm (laceration),injury
+right biceps,injury
+shin laceration,injury
+tailbone,injury
+thighs,injury
+trap,injury
+non-football illness,illness
+medical illness,illness
+not injury related - other,non_injury
+coach's decision,non_injury
+coaching decision,non_injury
+not injury related - coach's decision,non_injury
+not injury related - travel,non_injury
+not injury related - returning from suspension,non_injury
+not injury related - did not travel,non_injury
+not injury related - coaching decision,non_injury
+coach decision,non_injury
+coaching,non_injury
+not injury related - team decision,non_injury
+not injury related -- resting veteran,non_injury
+not injury related - discipline,non_injury
+personal,non_injury
+resting vet,non_injury
+load management,non_injury
+returning from suspension,non_injury
+- resting veteran,non_injury
+/coach's decision to not pract,non_injury
+/coach's decision to not practice friday,non_injury
+personal matter,non_injury
+return from suspension,non_injury
+travel after trade,non_injury
+vet rest,non_injury
+"back, ankle, knee",injury
+"elbow, knee",injury
+"knee, hamstring",injury
+"nose, back",injury
+"toe, pec, knee, hip",injury
+"ankle, ankle",injury
+"ankle, hamstring",injury
+"back, ankle",injury
+elbow knee,injury
+"hand, groin",injury
+other-stinger,injury
+"groin, wrist",injury
+"knee, ankle",injury
+"knee, ankle, back",injury
+"shoulder, knee",injury
+"abdomen, shoulder",injury
+ankle / shoulder,injury
+ankle elbow,injury
+"ankle, knee",injury
+"ankle, knee, elbow",injury
+back foot,injury
+"back, toe",injury
+calf shoulder,injury
+elbow and knee,injury
+"elbow, toe, knee",injury
+finger ankle,injury
+foot back,injury
+foot/wrist/hip,injury
+"groin, knee, ankle",injury
+"hamstring, abdomen",injury
+"hamstring, wrist",injury
+"hand, neck",injury
+knee / hamstring,injury
+knee finger,injury
+"knee, achilles",injury
+"knee, back, toe",injury
+"knee, foot",injury
+"knee, shoulder",injury
+knee/shoulder/toe,injury
+"left shoulder, left elbow",injury
+non football injury,injury
+non-football injury,injury
+pec / knee,injury
+"pec, knee",injury
+"quadricep, ankle, knee",injury
+"rib, ankle",injury
+ribs knee,injury
+"ribs, back",injury
+right elbow   back,injury
+"right shoulder, rib",injury
+"shoulder, finger",injury
+solar plexus,injury
+third injury: ankle,injury
+"toe, achilles, hip",injury
+"toe, hamstring",injury
+abdomen/throat/back,injury
+achilles - out,injury
+ankle / knee,injury
+"ankle, elbow",injury
+burner,injury
+concussion. tremble has cleared concussion protocol. his game status is a result of a back injury.,injury
+did not travel to brazil due to a personal matter and will not play in the game.,non_injury
+elbow ankle,injury
+"foot, groin",injury
+hip/shoulder (rt.),injury
+knee neck,injury
+knee/shoulder,injury
+neck stinger,injury
+"neck, back",injury
+"oblique, knee",injury
+player was ill this morning. fully expected to play. no game status.,illness
+"quadricep, triceps",injury
+"ribs, triceps",injury
+"shoulder, biceps, hand",injury
+"shoulder, hamstring",injury
+shoulder/toe/knee,injury
+thumb and neck,injury
+"thumb, foot",injury
+trent sherfield sr. did not travel with the team today for personal reasons. he is traveling separately and is expected to be available for sunday’s game.,non_injury
+"wrist, knee",injury
+covid ramp up,covid_related
+covid protocol,covid_related
+covid protocols,covid_related
+covid/reserve,covid_related
+reserve/covid activation,covid_related
+cramps,health_other
+migraine,health_other
+appendix,health_other
+hernia,health_other
+heat related,health_other
+stomach,health_other
+appendicitis,health_other
+nir-medical,health_other
+shortness of breath,health_other
+headache,health_other
+dehydration,health_other
+heat cramps,health_other
+heat exhaustion,health_other
+lower leg cramps,health_other
+concussion protocol,evaluation
+inactive,unspecified
+placed on injured reserve,unspecified
+"raym, andrew has cleared concussion protocol and does not have a game status.",unspecified
+knee illness,injury_and_illness
+"hand, illness",injury_and_illness
+"rib, illness",injury_and_illness
+ribs / shoulder / illness,injury_and_illness
+"shoulder, illness",injury_and_illness
+abdomen / illness,injury_and_illness
+"calf, illness",injury_and_illness
+finger illness,injury_and_illness
+"knee, illness",injury_and_illness
+"ankle [not injury related - personal, thursday only]",injury_and_non_injury
+"calf, resting veteran",injury_and_non_injury
+thigh/non-injury,injury_and_non_injury
+"back, toe, rest",injury_and_non_injury
+"knee, toe, rest",injury_and_non_injury
+"rib, not injury related - rest",injury_and_non_injury
+"ribs, not injury related - res",injury_and_non_injury
+thumb/not injury related - per,injury_and_non_injury
