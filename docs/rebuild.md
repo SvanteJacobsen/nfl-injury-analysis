@@ -899,4 +899,47 @@ The selected build executed successfully:
 - PASS=114, WARN=0, ERROR=0
 
 This validates the selected pipeline in the existing environment.
-A complete rebuild in a fresh Snowflake account has not yet been verified.
+
+## Rebuild the injury-report intermediate models
+
+Run these commands from the repository root:
+
+```bash
+source .venv-dbt/bin/activate
+
+dotenv -f .env run -- dbt build --select +int_injury_reports_team_normalized +int_injury_report_categories injury_category_mapping_pairs_are_unique injury_category_mapping_covers_injury_descriptions --project-dir dbt --profiles-dir dbt
+```
+
+Both model branches are selected: the report-level transformations and
+the report-category mapping. The `+` prefix includes their upstream
+dependencies.
+
+The pipeline:
+
+- Retains the latest source version per season, game type, week, team
+  and player ID.
+- Extracts the four injury-description fields and classifies their text.
+- Maps injury descriptions to standardized analytical categories.
+- Consolidates repeated category mentions within each retained report.
+- Standardizes position groups, using unambiguous weekly roster evidence
+  for unmatched regular-season positions.
+- Standardizes team aliases to shared franchise codes.
+
+Validated checkpoint, 2026-11-06:
+
+- 60,788 source records represented by 60,786 retained reports.
+- 98,623 populated description occurrences, all classified.
+- Seven reports without descriptions remain in the report-level model.
+- 52,655 reports contain injury information.
+- 55,995 report-category rows across 61 categories.
+- All reports have a position group: 60,774 from report positions and
+  12 from weekly roster evidence.
+- All reports have a standardized team code across 32 franchises.
+
+The category mapping contains 303 rows covering 217 description keys.
+`hip flexor` maps to `hip`. The shared team mapping includes `stl` → `LA`.
+
+These models represent weekly reports and reported categories, not
+distinct injury events. Category counts can overlap within a report.
+The 2023 source contains REG and WC reports but lacks DIV, CON and SB
+coverage. Compare regular seasons separately from playoffs.
