@@ -943,3 +943,57 @@ These models represent weekly reports and reported categories, not
 distinct injury events. Category counts can overlap within a report.
 The 2023 source contains REG and WC reports but lacks DIV, CON and SB
 coverage. Compare regular seasons separately from playoffs.
+
+## Rebuild the injury-report marts
+
+Run from the repository root with `.venv-dbt` activated:
+
+```bash
+dotenv -f .env run -- dbt build --select +fct_injury_reports +bridge_injury_report_categories injury_category_mapping_pairs_are_unique injury_category_mapping_covers_injury_descriptions --project-dir dbt --profiles-dir dbt
+```
+
+Both marts are materialized as tables in DBT_DEV_MARTS.
+
+### fct_injury_reports
+
+One row per retained weekly report. Contains ten columns:
+
+- injury_report_id
+- season
+- season_phase
+- game_type
+- week
+- team_code
+- gsis_id
+- player_name
+- position_group
+- has_injury_information
+
+All reports are retained. Filter has_injury_information to true
+when counting reports containing injury information.
+
+### bridge_injury_report_categories
+
+Contains two columns:
+
+- injury_report_id
+- injury_category
+
+Each report-category pair occurs once. A report can have multiple
+categories. Count distinct injury_report_id when counting reports
+across multiple categories.
+
+Original descriptions, classification coverage and source metadata
+remain available in intermediate models.
+
+### Validated checkpoint: 2026-11-06
+
+- 60,786 reports with unique report IDs.
+- 52,655 reports containing injury information.
+- 55,995 report-category pairs across 61 categories.
+- Selected build: PASS=125, WARN=0, ERROR=0, including 108 data tests.
+
+These tables support counts of weekly reports and distinct players,
+not distinct injury events. The 2023 source lacks DIV, CON and SB
+coverage; compare regular seasons separately from playoffs.
+
