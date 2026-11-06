@@ -1,0 +1,100 @@
+version: 2
+
+models:
+  - name: fct_ir_placements
+    description: >
+      One row per deduplicated IR placement in the archived source.
+      Includes unresolved player identities.
+      A placement is a transaction, not necessarily a distinct injury
+      or a season-ending injury.
+      Distinct gsis_id counts exclude unresolved identities and must
+      be recalculated at the selected reporting level.
+
+    columns:
+      - name: ir_placement_id
+        description: >
+          Identifier derived from the archived source file hash and
+          retained row number. May change when the source snapshot changes.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: season
+        description: NFL season assigned to the transaction.
+        data_tests:
+          - not_null
+
+      - name: transaction_date
+        description: Date recorded for the IR placement.
+        data_tests:
+          - not_null
+
+      - name: ir_team_code
+        description: Normalized franchise code associated with the placement.
+        data_tests:
+          - not_null
+
+      - name: player_name
+        description: Player name retained from the IR source.
+        data_tests:
+          - not_null
+
+      - name: gsis_id
+        description: Resolved player identifier, null for unresolved identities.
+
+      - name: position_group
+        description: >
+          Broad analytical position group. Null when unresolved.
+          Assignment may use season-based or general register evidence
+          rather than the exact role on the transaction date.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - QB
+                  - RB
+                  - TE
+                  - WR
+                  - OL
+                  - DL
+                  - LB
+                  - DB
+                  - K/P/LS
+
+      - name: player_match_status
+        description: Method or unresolved status of the player identity match.
+        data_tests:
+          - not_null
+
+      - name: position_group_status
+        description: Outcome of the position-group assignment.
+        data_tests:
+          - not_null
+
+      - name: position_group_source
+        description: Evidence level selected for the position-group decision.
+        data_tests:
+          - not_null
+
+      - name: position_group_review_reason
+        description: Review provenance when a manual position decision is used.
+
+      - name: source_filename
+        description: Original IR source filename.
+
+      - name: source_file_sha256
+        description: SHA-256 checksum identifying the archived source file.
+        data_tests:
+          - not_null
+
+      - name: source_row_number
+        description: Retained row number in the original source file.
+        data_tests:
+          - not_null
+
+      - name: source_record_count
+        description: >
+          Number of original source rows represented by this placement.
+          Includes duplicate source records and is not a placement count.
+        data_tests:
+          - not_null
