@@ -1,0 +1,52 @@
+version: 2
+
+seeds:
+  - name: season_game_counts
+    description: >-
+      League-wide regular-season and preseason game counts for
+      2015 through 2024. Each game is counted once, not once per
+      participating team. Postseason games are excluded.
+
+      Preseason counts include the Hall of Fame Game when played.
+      Games cancelled without play are excluded. Shortened preseason
+      games with an official final result are counted once, without
+      adjustment for playing time.
+
+      Exceptions include the cancelled 2016 Hall of Fame Game,
+      the cancelled 2017 Texans-Cowboys preseason game, no preseason
+      games in 2020, and the cancelled 2021 Saints-Cardinals game.
+      The regular-season count for 2022 excludes the cancelled
+      Bills-Bengals game.
+
+      Game counts are aggregate denominators, not measures of
+      individual player exposure.
+
+      References:
+      https://www.49ers.com/news/nfl-17-game-49ers-bengals-2021-international-nfc-afc
+      https://www.buffalobills.com/news/nfl-says-neutral-site-afc-championship-game-is-possible-bills-bengals-week-17-ga
+      https://www.nfl.com/news/2015-nfl-preseason-schedule-0ap3000000484534
+      https://www.nfl.com/news/nfl-releases-65-game-2018-preseason-schedule-0ap3000000925971
+      https://www.nfl.com/news/2023-nfl-preseason-complete-team-by-team-opponents
+      https://www.colts.com/news/hall-of-fame-game-cancelled-due-to-field-conditions-17439894
+      https://www.houstontexans.com/news/texans-announce-2018-preseason-opponents-20532273
+      https://www.neworleanssaints.com/news/new-orleans-saints-cancellation-2020-nfl-preseason-games
+      https://www.neworleanssaints.com/news/statement-from-new-orleans-saints-on-preseason-game-3-vs-arizona-cardinals
+
+    columns:
+      - name: season
+        description: NFL season.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: regular_season_games
+        description: Number of official regular-season games counted.
+        data_tests:
+          - not_null
+
+      - name: preseason_games
+        description: >-
+          Number of preseason games counted, including the Hall of
+          Fame Game when played. Zero in 2020.
+        data_tests:
+          - not_null
