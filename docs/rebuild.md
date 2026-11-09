@@ -997,3 +997,57 @@ These tables support counts of weekly reports and distinct players,
 not distinct injury events. The 2023 source lacks DIV, CON and SB
 coverage; compare regular seasons separately from playoffs.
 
+### Build the concussion mart
+
+Run from the repository root with the dbt virtual environment activated.
+The raw concussion data must already be loaded.
+
+```bash
+source .venv-dbt/bin/activate
+
+dotenv -f .env run -- dbt build --select +fct_concussions concussion_game_denominators_are_valid --project-dir dbt --profiles-dir dbt
+```
+
+This builds the required seed, staging model, and concussion mart,
+and runs the selected data tests.
+
+The `season_game_counts` seed contains:
+- `season`
+- `regular_season_games`
+- `preseason_games`
+
+If the seed's columns change, rebuild that seed with a full refresh
+before rebuilding the mart:
+
+```bash
+dotenv -f .env run -- dbt seed --full-refresh --select season_game_counts --project-dir dbt --profiles-dir dbt
+```
+
+A full refresh is not normally needed when only seed values change.
+
+Verify the mart in Snowflake:
+
+```sql
+select
+    season,
+    preseason_game_concussions,
+    preseason_games,
+    round(
+        preseason_game_concussions_per_game, 4
+    ) as preseason_concussions_per_game,
+    regular_season_game_concussions,
+    regular_season_games,
+    round(
+        regular_season_game_concussions_per_game, 4
+    ) as regular_season_concussions_per_game
+from NFL_INJURY_ANALYSIS.DBT_DEV_MARTS.FCT_CONCUSSIONS
+order by season;
+```
+
+Latest verified checkpoint:
+- 10 season rows covering 2015–2024.
+- 25 successful build steps, including 22 data tests.
+- No errors or warnings.
+- 2020 preseason games: 0.
+- 2020 preseason game concussion count and rate: NULL.
+
