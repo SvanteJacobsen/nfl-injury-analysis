@@ -1,0 +1,73 @@
+version: 2
+
+models:
+  - name: fct_concussions
+    description: >-
+      One row per season containing aggregate reported concussion
+      counts for preseason and regular-season practices and games.
+      Current coverage is 2015 through 2024.
+      Counts are not weekly injury-report counts or distinct player
+      counts. No postseason measure is provided.
+      Per-game measures use game concussions only and exclude
+      practice concussions. They are not individual player risks.
+      Source metadata remains available in stg_concussions.
+
+    columns:
+      - name: season
+        description: NFL season.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: preseason_practice_concussions
+        description: Reported preseason practice concussions.
+        data_tests:
+          - not_null
+
+      - name: preseason_game_concussions
+        description: >-
+          Reported preseason game concussions. The source value
+          remains null for 2020, when no preseason games were played.
+
+      - name: regular_season_practice_concussions
+        description: Reported regular-season practice concussions.
+        data_tests:
+          - not_null
+
+      - name: regular_season_game_concussions
+        description: Reported regular-season game concussions.
+        data_tests:
+          - not_null
+
+      - name: total_concussions
+        description: Source total across the four reported components.
+        data_tests:
+          - not_null
+
+      - name: preseason_games
+        description: >-
+          League-wide preseason game count, including the Hall of
+          Fame Game when played. Zero in 2020. Shortened games with
+          an official final result count once without a time adjustment.
+        data_tests:
+          - not_null
+
+      - name: regular_season_games
+        description: >-
+          League-wide regular-season game count. Each game counts
+          once. The cancelled 2022 Bills-Bengals game is excluded.
+        data_tests:
+          - not_null
+
+      - name: preseason_game_concussions_per_game
+        description: >-
+          Preseason game concussions divided by preseason games.
+          Null when no preseason games were played.
+          Not adjusted for playing time or player exposure.
+
+      - name: regular_season_game_concussions_per_game
+        description: >-
+          Regular-season game concussions divided by regular-season
+          games. Not adjusted for playing time or player exposure.
+        data_tests:
+          - not_null
