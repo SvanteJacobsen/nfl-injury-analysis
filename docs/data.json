@@ -1,0 +1,102 @@
+[
+  {
+    "year": 2015,
+    "total": 275,
+    "prePractice": 29,
+    "preGame": 54,
+    "regPractice": 9,
+    "regGame": 183,
+    "preGames": 65,
+    "regGames": 256
+  },
+  {
+    "year": 2016,
+    "total": 243,
+    "prePractice": 26,
+    "preGame": 45,
+    "regPractice": 6,
+    "regGame": 166,
+    "preGames": 64,
+    "regGames": 256
+  },
+  {
+    "year": 2017,
+    "total": 281,
+    "prePractice": 45,
+    "preGame": 46,
+    "regPractice": 11,
+    "regGame": 179,
+    "preGames": 64,
+    "regGames": 256
+  },
+  {
+    "year": 2018,
+    "total": 214,
+    "prePractice": 45,
+    "preGame": 34,
+    "regPractice": 8,
+    "regGame": 127,
+    "preGames": 65,
+    "regGames": 256
+  },
+  {
+    "year": 2019,
+    "total": 224,
+    "prePractice": 30,
+    "preGame": 49,
+    "regPractice": 9,
+    "regGame": 136,
+    "preGames": 65,
+    "regGames": 256
+  },
+  {
+    "year": 2020,
+    "total": 172,
+    "prePractice": 30,
+    "preGame": null,
+    "regPractice": 13,
+    "regGame": 129,
+    "preGames": 0,
+    "regGames": 256
+  },
+  {
+    "year": 2021,
+    "total": 187,
+    "prePractice": 30,
+    "preGame": 22,
+    "regPractice": 9,
+    "regGame": 126,
+    "preGames": 48,
+    "regGames": 272
+  },
+  {
+    "year": 2022,
+    "total": 213,
+    "prePractice": 25,
+    "preGame": 27,
+    "regPractice": 12,
+    "regGame": 149,
+    "preGames": 49,
+    "regGames": 271
+  },
+  {
+    "year": 2023,
+    "total": 219,
+    "prePractice": 26,
+    "preGame": 32,
+    "regPractice": 9,
+    "regGame": 152,
+    "preGames": 49,
+    "regGames": 272
+  },
+  {
+    "year": 2024,
+    "total": 182,
+    "prePractice": 18,
+    "preGame": 26,
+    "regPractice": 9,
+    "regGame": 129,
+    "preGames": 49,
+    "regGames": 272
+  }
+]
